@@ -1,0 +1,65 @@
+#searchbar-form {
+  margin: 0;
+  width: 100%;
+
+  #searchbar {
+    position: relative;
+
+    display: flex;
+    width: 100%;
+
+    input {
+      border-radius: 6px 0 0 6px;
+      border: #dedede 1px solid;
+      width: 78%;
+    }
+
+    input:hover {
+      border: rgb(117, 159, 252) 1px solid;
+    }
+
+    button {
+      padding: 0 1rem;
+
+      border-radius: 0 6px 6px 0;
+      border: none;
+      background-color: #dedede;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d1d1d1;
+    }
+
+    .search-dropdown {
+      position: absolute;
+      top: 100%;
+
+      margin: 0;
+      padding: 0;
+      width: 80%;
+
+      background-color: white;
+      box-shadow: 0 5px 10px grey;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+
+      overflow: hidden;
+      z-index: 100;
+
+      li {
+        padding: 1rem;
+
+        list-style: none;
+        border: 2px solid transparent;
+
+        cursor: pointer;
+
+        &:hover {
+          background-color: #dedede;
+          border: 2px solid #759ffc;
+        }
+      }
+    }
+  }
+}
