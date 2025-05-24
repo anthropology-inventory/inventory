@@ -28,11 +28,12 @@ export default function View() {
   // Load up will fetches for the specimens which should return a json for us to use and show to the view page
   useEffect(() => {
     const fetchSpecimens = async () => {
+      const API_URI = import.meta.env.VITE_API_BASE_URI
       const token = localStorage.getItem('token')
 
       // try to get a response from the api
       try {
-        const response = await fetch('http://localhost:3001/api/specimens', {
+        const response = await fetch(`${API_URI}/api/specimens`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -91,13 +92,13 @@ export default function View() {
 
           <button id="grid-list-toggle" type="button" onClick={toggleView}>
             <img
-              src="http://localhost:3001/svg/grid.svg"
+              src="/svg/grid.svg"
               alt="Grid Icon"
               id="grid-view"
               className={viewType === 'grid' ? 'active' : ''}
             />
             <img
-              src="http://localhost:3001/svg/list.svg"
+              src="/svg/list.svg"
               alt="List Icon"
               id="list-view"
               className={viewType === 'list' ? 'active' : ''}

@@ -17,10 +17,12 @@ const SpecimenCard = ({ specimen, onDelete }) => {
 
     setIsDeleting(true) // Extra protection for the delete btn
 
+    const API_URI = import.meta.env.VITE_API_BASE_URI
+
     const token = localStorage.getItem('token')
 
     try {
-      const response = await fetch(`http://localhost:3001/api/specimens/${specimen._id}`, {
+      const response = await fetch(`${API_URI}/api/specimens/${specimen._id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
