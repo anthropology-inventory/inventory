@@ -1,10 +1,12 @@
-const PORT = 3001
-const API_URI = `http://localhost:` + PORT + `/api/specimens/`
+// const PORT = 3001
+// const API_URI = `http://localhost:` + PORT + `/api/specimens/`
+const API_URI = import.meta.env.VITE_API_BASE_URI
+
 const token = localStorage.getItem('token')
 
 export const fetchTotalRecords = async () => {
   try {
-    const response = await fetch(API_URI + 'totalRecords', {
+    const response = await fetch(API_URI + '/api/specimens/totalRecords', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,7 +26,7 @@ export const fetchTotalRecords = async () => {
 
 export const fetchAllArtifactsByCategory = async (category) => {
   try {
-    const response = await fetch(API_URI + 'totalByCategory/' + category, {
+    const response = await fetch(API_URI + '/api/specimens/totalByCategory/' + category, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +46,7 @@ export const fetchAllArtifactsByCategory = async (category) => {
 
 export const fetchTotalCost = async () => {
   try {
-    const response = await fetch(API_URI + 'totalCost', {
+    const response = await fetch(API_URI + '/api/specimens/totalCost', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -64,7 +66,7 @@ export const fetchTotalCost = async () => {
 
 export const fetchCurrentValue = async () => {
   try {
-    const response = await fetch(API_URI + 'currentVal', {
+    const response = await fetch(API_URI + '/api/specimens/currentVal', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,7 +86,7 @@ export const fetchCurrentValue = async () => {
 
 export const fetchRecentSpecimens = async () => {
   try {
-    const response = await fetch(API_URI + 'recent', {
+    const response = await fetch(API_URI + '/api/specimens/recent', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -112,7 +114,7 @@ export const addArtifact = async (formData) => {
       }
     })
 
-    const response = await fetch(API_URI, {
+    const response = await fetch(API_URI + '/api/specimens/', {
       method: 'POST',
       body: form,
       headers: {
@@ -135,7 +137,7 @@ export const addArtifact = async (formData) => {
 
 export const getArtifactById = async (id) => {
   try {
-    const response = await fetch(API_URI + id, {
+    const response = await fetch(API_URI + '/api/specimens/' + id, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -155,7 +157,7 @@ export const getArtifactById = async (id) => {
 
 export const updateArtifact = async (id, formData) => {
   try {
-    const response = await fetch(API_URI + id, {
+    const response = await fetch(API_URI + '/api/specimens/' + id, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -179,7 +181,7 @@ export const updateArtifact = async (id, formData) => {
 // DetailsPage
 export const fetchSpecimenById = async (id) => {
   try {
-    const response = await fetch(`${API_URI}${id}`, {
+    const response = await fetch(`${API_URI}/api/specimens/${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -218,7 +220,7 @@ export const saveNotesToLocalStorage = (id, notes) => {
 
 export const login = async (email, password) => {
   try {
-    const res = await fetch('http://localhost:3001/api/login', {
+    const res = await fetch(`${API_URI}/api/login` , {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' }

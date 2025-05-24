@@ -9,11 +9,18 @@ const SearchBar = () => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([])
   const navigate = useNavigate()
 
-  const API_BASE_URL = `http://localhost:3001`
+  const API_URI = import.meta.env.VITE_API_BASE_URI
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     const fetchSpecimens = async () => {
-      const response = await fetch(`${API_BASE_URL}/api/specimens`)
+      const response = await fetch(`${API_URI}/api/specimens`, {
+        method: 'GET',
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
       const json = await response.json()
 
       if (response.ok) {
