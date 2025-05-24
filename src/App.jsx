@@ -8,7 +8,7 @@ import AddArtifact from './pages/AddArtifact.jsx'
 import SpecimenDetail from './pages/SpecimenDetail.jsx'
 import UpdateProduct from './pages/UpdateProduct.jsx'
 import LoginForm from './pages/forms/LoginForm.jsx'
-import Logout from './pages/logout.jsx'
+import Logout from './pages/Logout.jsx'
 // import ProtectedRoutes from './utils/protectedRoutes.jsx'
 
 function App() {
