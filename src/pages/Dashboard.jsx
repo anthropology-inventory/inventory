@@ -1,7 +1,7 @@
 import DashArtifactCard from '../components/dashboard-components/DashArtifactCard'
 import DashboardWidget from '../components/dashboard-components/DashboardWidget'
 import { PieChart } from '@mui/x-charts/PieChart'
-import { cheerfulFiestaPalette, legendClasses } from '@mui/x-charts'
+import { cheerfulFiestaPalette } from '@mui/x-charts'
 import { BsPlusCircle, BsEye } from 'react-icons/bs'
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react'
@@ -98,8 +98,8 @@ const Dashboard = () => {
                       { id: 0, value: totalFossils, label: 'Fossils' },
                       { id: 1, value: totalPottery, label: 'Pottery' },
                       { id: 2, value: totalStoneTools, label: 'Stone Tools' },
-                      { id: 3, value: 4, label: 'Weaponry' },
-                      { id: 4, value: 6, label: 'Tools (non-weaponry)' }
+                      { id: 3, value: 0, label: 'Weaponry' },
+                      { id: 4, value: 0, label: 'Tools (non-weaponry)' }
                     ],
                     highlightScope: { fade: 'global', highlight: 'item' },
                     faded: { innerRadius: 0, additionalRadius: -30, color: 'gray' },

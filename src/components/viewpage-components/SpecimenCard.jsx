@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { BsPencilSquare, BsTrash3Fill } from 'react-icons/bs'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
+import PlaceholderImg from '../../assets/images/Image-not-found.png'
 
 const SpecimenCard = ({ specimen, onDelete }) => {
   // Card Menu Btns
@@ -51,10 +52,10 @@ const SpecimenCard = ({ specimen, onDelete }) => {
       <Link className="specimen-link" to={`/specimen/${specimen._id}`}>
         <div className="specimen-img">
           <img
-            src={
-              specimen.images?.[0]
-                ? `http://localhost:3001${specimen.images[0]}`
-                : 'http://localhost:3001/uploads/image-not-found.jpg'
+            src={PlaceholderImg
+              // specimen.images?.[0]
+              //   ? `http://localhost:3001${specimen.images[0]}`
+              //   : PlaceholderImg
             }
             alt={specimen.nickName || 'Unknown Specimen'}
             className="specimen-image"
@@ -69,14 +70,12 @@ const SpecimenCard = ({ specimen, onDelete }) => {
             <IconButton id="edit-btn">
               <BsPencilSquare />
               <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
-                Update
               </Link>
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete artifact" placement="top" arrow>
             <IconButton id="delete-btn" onClick={handleDelete} disabled={isDeleting}>
               <BsTrash3Fill />
-              Delete
             </IconButton>
           </Tooltip>
         </div>

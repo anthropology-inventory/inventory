@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { validateInput } from '../../utils/signIn_validation'
 import { login } from '../../utils/api'
 import { useNavigate } from 'react-router-dom'
+import { toast, Bounce } from 'react-toastify'
 
 export default function LoginForm() {
   const [errors, setErrors] = useState({})
@@ -43,14 +44,33 @@ export default function LoginForm() {
       // // prevent login if fails
       if (!res.ok) {
         console.log(data.errors || data.error)
+        toast.error(`Login failed...`, {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        theme: 'colored',
+        transition: Bounce
+      })
         return
       }
 
       // Set token
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
-      navigate('/Dashboard')
-      window.location.reload()
+      toast.success(`Welcome!`, {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce
+      })
+      setTimeout(() => {
+        navigate('/Dashboard')
+        window.location.reload()
+      }, 2000)
     } catch (error) {
       console.error('Login failed:', error)
     }
@@ -84,7 +104,8 @@ export default function LoginForm() {
             changeFunc={handleChange}
             inputClass={formData.password === '' ? '' : errors.password ? 'invalid' : 'valid'}
             validationErr={errors.password}
-          ></FormInput>
+          ></FormInput>,
+          // <a id="resetPassword" href='/'>Reset Password?</a>
         ]}
       />
       <button key="submit" id="login-btn">
