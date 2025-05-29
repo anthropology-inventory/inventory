@@ -20,6 +20,9 @@ body {
 
   #navbar {
     align-self: start;
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
 }
 
@@ -42,6 +45,8 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
+  min-width: 900px;
+
 
   a {
     color: #333;

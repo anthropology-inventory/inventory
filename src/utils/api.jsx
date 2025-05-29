@@ -4,6 +4,25 @@ const API_URI = import.meta.env.VITE_API_BASE_URI
 
 const token = localStorage.getItem('token')
 
+export const fetchArtifacts = async () => {
+  try {
+    const res = await fetch(API_URI + '/api/specimens', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    if (!res.ok) {
+      console.log('Error fetching artifacts')
+    }
+    const data = await res.json()
+    return data
+  } catch (err) {
+    console.error("Failed to fetch artifacts:", err)
+  }
+}
+
 export const fetchTotalRecords = async () => {
   try {
     const response = await fetch(API_URI + '/api/specimens/totalRecords', {

@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { IconButton, Tooltip, Box } from '@mui/material'
+import { BsPlusCircle, BsFillGridFill, BsListUl } from 'react-icons/bs'
+import { fetchArtifacts } from '../utils/api.jsx'
 
 // Components
 import Sidebar from '../components/viewpage-components/Sidebar'
@@ -9,6 +13,7 @@ import CollectionView from '../components/viewpage-components/CollectionView.jsx
 import '../styles/index.css'
 import '../styles/specimensExplorer.css'
 import { Link } from 'react-router-dom'
+import SearchBar from '../components/SearchBar.jsx'
 
 export default function View() {
   const [searchTerm, setSearchTerm] = useState('') // For inventory search bar
@@ -28,26 +33,11 @@ export default function View() {
   // Load up will fetches for the specimens which should return a json for us to use and show to the view page
   useEffect(() => {
     const fetchSpecimens = async () => {
-      const API_URI = import.meta.env.VITE_API_BASE_URI
-      const token = localStorage.getItem('token')
-
-      // try to get a response from the api
       try {
-        const response = await fetch(`${API_URI}/api/specimens`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        if (!response.ok) {
-          throw new Error('Failed to fetch specimens')
-        }
-        const data = await response.json()
+        const data = await fetchArtifacts()
         setSpecimens(data)
-        setFetchError(null) // If there is an error, we'll reset since it's now fixed
+        setFetchError(null)
       } catch (error) {
-        // otherwise we'll use a default which might be removed later and display an error
         console.error('Error fetching specimens, using default data:', error)
         setFetchError('Failed to load specimens. Please try again later.')
       }
@@ -76,37 +66,28 @@ export default function View() {
   return (
     <div className="view-page">
       <Sidebar specimens={specimens} setSearchTerm={setSearchTerm} />
-
       <div className="specimens-view-container">
-        <div className="view-add-btn">
-          <Link to={`/AddArtifact`}>Add Product</Link>
+        <Box sx={{ display: 'flex'}}>
+          <SearchBar />
+          <NavLink className="view-add-btn" to="/AddArtifact">
+            <BsPlusCircle />
+            Add artifact
+          </NavLink>
+        </Box>
+        
+        <div className='view-controls' id="grid-list-toggle" onClick={toggleView}>
+          <Tooltip title="Grid view" arrow>
+            <IconButton  
+            className={viewType === 'grid' ? 'active' : ''} >
+              <BsFillGridFill/>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="List view" arrow>
+            <IconButton className={viewType === 'list' ? 'active' : ''}>
+              <BsListUl />
+            </IconButton>
+          </Tooltip>
         </div>
-
-        <div className="view-controls">
-          <input
-            type="text"
-            placeholder="Inventory Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-
-          <button id="grid-list-toggle" type="button" onClick={toggleView}>
-            <img
-              src="/svg/grid.svg"
-              alt="Grid Icon"
-              id="grid-view"
-              className={viewType === 'grid' ? 'active' : ''}
-            />
-            <img
-              src="/svg/list.svg"
-              alt="List Icon"
-              id="list-view"
-              className={viewType === 'list' ? 'active' : ''}
-            />
-          </button>
-        </div>
-
-        {/* error message if fetch fails */}
         {fetchError ? (
           <h1 className="error">{fetchError}</h1>
         ) : (
