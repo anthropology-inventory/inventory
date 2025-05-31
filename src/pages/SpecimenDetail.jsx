@@ -99,11 +99,7 @@ export default function SpecimenDetail() {
             <Card variant="outlined" className="sd-img-card">
               <Box sx={{ p: 3 }} className="sd-card">
                 <img
-                  src={
-                    specimen.images && specimen.images.length > 0
-                      ? `http://localhost:3001${specimen.images[0]}`
-                      : 'fallback-image.jpg'
-                  }
+                  src={specimen.images || PlaceholderImg}
                   alt={specimen.nickName || 'Specimen Image'}
                   className="sd-img"
                 />

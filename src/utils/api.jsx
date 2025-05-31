@@ -19,7 +19,7 @@ export const fetchArtifacts = async () => {
     const data = await res.json()
     return data
   } catch (err) {
-    console.error("Failed to fetch artifacts:", err)
+    console.error('Failed to fetch artifacts:', err)
   }
 }
 
@@ -239,7 +239,7 @@ export const saveNotesToLocalStorage = (id, notes) => {
 
 export const login = async (email, password) => {
   try {
-    const res = await fetch(`${API_URI}/api/login` , {
+    const res = await fetch(`${API_URI}/api/login`, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' }
