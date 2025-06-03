@@ -3,16 +3,16 @@ import { ToastContainer } from 'react-toastify'
 
 // pages & components
 import NavBar from './components/Navbar.jsx'
-import ProtectedRoutes from './utils/protectedRoutes.jsx'
+import ProtectedRoutes from './utils/ProtectedRoutes.jsx'
 
 function App() {
   return (
     <div className="App">
       <Router>
         <NavBar />
-          {<ProtectedRoutes />}
+        {<ProtectedRoutes />}
       </Router>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   )
 }
