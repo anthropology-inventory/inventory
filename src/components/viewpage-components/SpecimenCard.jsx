@@ -52,11 +52,7 @@ const SpecimenCard = ({ specimen, onDelete }) => {
       <Link className="specimen-link" to={`/specimen/${specimen._id}`}>
         <div className="specimen-img">
           <img
-            src={PlaceholderImg
-              // specimen.images?.[0]
-              //   ? `http://localhost:3001${specimen.images[0]}`
-              //   : PlaceholderImg
-            }
+            src={specimen.images || PlaceholderImg}
             alt={specimen.nickName || 'Unknown Specimen'}
             className="specimen-image"
           />
@@ -69,8 +65,10 @@ const SpecimenCard = ({ specimen, onDelete }) => {
           <Tooltip title="Edit artifact" placement="top" arrow>
             <IconButton id="edit-btn">
               <BsPencilSquare />
-              <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
-              </Link>
+              <Link
+                className="specimen-card-btns-update"
+                to={`/UpdateProduct/${specimen._id}`}
+              ></Link>
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete artifact" placement="top" arrow>
