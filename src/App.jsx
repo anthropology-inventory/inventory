@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify'
 
 // pages & components
 import NavBar from './components/Navbar.jsx'
-import ProtectedRoutes from './utils/ProtectedRoutes.jsx'
+import ProtectedRoutes from './utils/protectedRoutes.jsx'
 
 function App() {
   return (

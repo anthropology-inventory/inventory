@@ -135,11 +135,11 @@ export const addArtifact = async (formData) => {
 
     const response = await fetch(API_URI + '/api/specimens/', {
       method: 'POST',
-      body: form,
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json'
-      }
+      },
+      body: form,
     })
 
     if (!response.ok) {
