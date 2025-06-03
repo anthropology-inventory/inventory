@@ -5,6 +5,7 @@ import { validateInput } from '../../utils/signIn_validation'
 import { login } from '../../utils/api'
 import { useNavigate } from 'react-router-dom'
 import { toast, Bounce } from 'react-toastify'
+import { Button, CircularProgress } from '@mui/material'
 
 export default function LoginForm() {
   const [errors, setErrors] = useState({})
@@ -13,6 +14,7 @@ export default function LoginForm() {
     email: '',
     password: ''
   })
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -28,6 +30,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     const hasValidationErrors = Object.values(errors).some(Boolean)
     if (hasValidationErrors) {
@@ -38,7 +41,6 @@ export default function LoginForm() {
 
     try {
       const res = await login(formData.email, formData.password)
-
       const data = await res.json()
 
       // // prevent login if fails
@@ -51,6 +53,7 @@ export default function LoginForm() {
         theme: 'colored',
         transition: Bounce
       })
+        setLoading(false)
         return
       }
 
@@ -73,6 +76,8 @@ export default function LoginForm() {
       }, 2000)
     } catch (error) {
       console.error('Login failed:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -108,9 +113,14 @@ export default function LoginForm() {
           // <a id="resetPassword" href='/'>Reset Password?</a>
         ]}
       />
-      <button key="submit" id="login-btn">
-        Login
-      </button>
+      <Button 
+        key="submit" 
+        id="login-btn"
+        type="submit" 
+        startIcon={loading && <CircularProgress size={20} />}
+      >
+        {loading ? 'Logging in...' : 'Login'}
+      </Button>
     </form>
   )
 }
