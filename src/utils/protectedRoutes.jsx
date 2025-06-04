@@ -38,7 +38,7 @@ function ProtectedRoutes() {
               path="/UpdateProduct/:id" 
               element={<UpdateProduct/>} 
             />
-            <Route path="/LoginForm" element={<LoginForm/>}/>
+            <Route path="/LoginForm" element={<Dashboard/>}/>
             <Route 
               path="/Logout" 
               element={<Logout/>} 
