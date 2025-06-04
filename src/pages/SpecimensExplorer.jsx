@@ -67,19 +67,18 @@ export default function View() {
     <div className="view-page">
       <Sidebar specimens={specimens} setSearchTerm={setSearchTerm} />
       <div className="specimens-view-container">
-        <Box sx={{ display: 'flex'}}>
-          <SearchBar />
+        <Box sx={{ display: 'flex' }}>
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <NavLink className="view-add-btn" to="/AddArtifact">
             <BsPlusCircle />
             Add artifact
           </NavLink>
         </Box>
-        
-        <div className='view-controls' id="grid-list-toggle" onClick={toggleView}>
+
+        <div className="view-controls" id="grid-list-toggle" onClick={toggleView}>
           <Tooltip title="Grid view" arrow>
-            <IconButton  
-            className={viewType === 'grid' ? 'active' : ''} >
-              <BsFillGridFill/>
+            <IconButton className={viewType === 'grid' ? 'active' : ''}>
+              <BsFillGridFill />
             </IconButton>
           </Tooltip>
           <Tooltip title="List view" arrow>
