@@ -130,7 +130,7 @@ const Dashboard = () => {
               {recentSpecimens?.map((el, idx) => (
                 <DashArtifactCard
                   key={idx}
-                  imgSrc={'http://localhost:3001' + el.images[0]}
+                  imgSrc={el.images[0]}
                   // name={el.genus + ' ' + el.species}
                   name={el.nickName ? el.nickName : el.genus + ' ' + el.species}
                   specimenId={el.specimenId}

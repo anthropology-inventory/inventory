@@ -284,33 +284,12 @@
 
 .specimen-card-btns {
   display: flex;
-  gap: 4px;
   justify-content: end;
   grid-row: 2/2;
 }
 
 .specimen-card-btns button {
-  display: flex;
-  color: white;
-  font-size: 16px;
   border-radius: 4px;
-
-  a {
-    text-decoration: none;
-    color: white;
-  }
-}
-
-#edit-btn {
-  background-color: #2041af;
-}
-
-#delete-btn {
-  background: #c70000;
-}
-
-.specimen-card-btns button:hover {
-  filter: brightness(1.2);
 }
 
 @media screen and (max-width: 1500px) {
@@ -323,6 +302,11 @@
   .grid-view {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+#delete-popup {
+  display: flex;
+  white-space: nowrap;
 }
 
 /* list-view
@@ -354,7 +338,6 @@
 
 .list-view tr:hover {
   background-color: lightgray;
-
   cursor: pointer;
 }
 

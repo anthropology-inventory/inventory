@@ -5,6 +5,8 @@ import { validateInput } from '../../utils/signIn_validation'
 import { login } from '../../utils/api'
 import { useNavigate } from 'react-router-dom'
 import { toast, Bounce } from 'react-toastify'
+import { Button, CircularProgress, ThemeProvider } from '@mui/material'
+import { button } from '../../styles/CustomThemes'
 
 export default function LoginForm() {
   const [errors, setErrors] = useState({})
@@ -13,10 +15,10 @@ export default function LoginForm() {
     email: '',
     password: ''
   })
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    // console.log(name, value)
     setFormData({ ...formData, [name]: value })
     setTouched({ ...touched, [name]: value })
 
@@ -28,6 +30,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     const hasValidationErrors = Object.values(errors).some(Boolean)
     if (hasValidationErrors) {
@@ -38,7 +41,6 @@ export default function LoginForm() {
 
     try {
       const res = await login(formData.email, formData.password)
-
       const data = await res.json()
 
       // // prevent login if fails
@@ -51,6 +53,7 @@ export default function LoginForm() {
         theme: 'colored',
         transition: Bounce
       })
+        setLoading(false)
         return
       }
 
@@ -59,7 +62,7 @@ export default function LoginForm() {
       localStorage.setItem('user', JSON.stringify(data.user))
       toast.success(`Welcome!`, {
         position: 'top-right',
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: false,
@@ -70,9 +73,11 @@ export default function LoginForm() {
       setTimeout(() => {
         navigate('/Dashboard')
         window.location.reload()
-      }, 2000)
+      }, 1000)
     } catch (error) {
       console.error('Login failed:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -80,14 +85,14 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} id="login-form" autoComplete="on">
       <FormFieldset
         fieldsetID="login-fields"
-        title="Login"
+        title="User Login"
         fields={[
           <FormInput
             key="email"
             label="Email"
             inputType="text"
             inputName="email"
-            placeholderTxt="GRC email address"
+            placeholderTxt="Please enter your email..."
             isRequired={true}
             changeFunc={handleChange}
             inputClass={formData.email === '' ? '' : errors.email ? 'invalid' : 'valid'}
@@ -100,17 +105,26 @@ export default function LoginForm() {
             label="Password"
             inputType="password"
             inputName="password"
+            placeholderTxt="Please enter your password..."
             isRequired={true}
             changeFunc={handleChange}
             inputClass={formData.password === '' ? '' : errors.password ? 'invalid' : 'valid'}
             validationErr={errors.password}
           ></FormInput>,
-          // <a id="resetPassword" href='/'>Reset Password?</a>
+          <ThemeProvider theme={button}>
+            <Button 
+              key="submit" 
+              id="login-btn"
+              variant='contained'
+              type="submit"
+              color={loading ? 'loading' : 'submit'} 
+              startIcon={loading && <CircularProgress size={20} />}
+              >
+              {loading ? 'Logging in...' : 'Login'}
+            </Button>
+          </ThemeProvider>
         ]}
       />
-      <button key="submit" id="login-btn">
-        Login
-      </button>
     </form>
   )
 }

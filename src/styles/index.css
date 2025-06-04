@@ -307,10 +307,10 @@ body {
 }
 
 .sd-back-btn {
-  background-color: rgb(10, 10, 21) !important;
+  /* background-color: #1b1b1b !important; */
 }
-.sd-edit-btn {
-  background-color: rgb(10, 10, 21) !important;
+#sd-edit-btn {
+  color: white !important;
 }
 .sd-table-container .sd-table-bold {
   font-weight: bold;
@@ -322,11 +322,12 @@ body {
 }
 
 .sd-card {
-  /* max-width: 400px; */
-  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+  justify-content: space-around;
+  box-sizing: border-box;
 }
 
 .sd-img-card {
