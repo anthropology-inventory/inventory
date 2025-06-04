@@ -3,8 +3,15 @@ import { Search } from 'lucide-react'
 import '../styles/searchbar-styles.css'
 import { useNavigate } from 'react-router-dom'
 
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('')
+const SearchBar = (props) => {
+  // If parent passed searchTerm and setSearchTerm it will unlock the live filtering otherwise, we'll only use this search bar for the drop down. For example, inventory for unlock and dashboard for dropdown
+  // If there is no searchTerm or setSearchTerm, we'll set the searchTerm & setSearchTerm to ' '
+  const isControlled = props.searchTerm !== undefined && props.setSearchTerm !== undefined
+  const [internalSearchTerm, setInternalSearchTerm] = useState('')
+  const searchTerm = isControlled ? props.searchTerm : internalSearchTerm
+  const setSearchTerm = isControlled ? props.setSearchTerm : setInternalSearchTerm
+
+  // const [searchTerm, setSearchTerm] = useState('')
   const [specimens, setSpecimens] = useState([])
   const [filteredSuggestions, setFilteredSuggestions] = useState([])
   const navigate = useNavigate()
@@ -16,7 +23,7 @@ const SearchBar = () => {
     const fetchSpecimens = async () => {
       const response = await fetch(`${API_URI}/api/specimens`, {
         method: 'GET',
-        headers: { 
+        headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
