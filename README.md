@@ -1,4 +1,4 @@
-# Anthropology Inventory Mangement Application 💀🔍
+# Anthropology Inventory Management Application 💀🔍
 A full-stack inventory management and display system for Green River College's Anthropology Department's collection.
 
 ## Table of Contents
@@ -29,7 +29,7 @@ This app was created in partnership with _Madeleine Aguilar_ -- a professor work
 Screenshots go here...
 
 ## Quick Start
-To get started, it is highly recommended to check out the developer documentation [here](https://github.com/anthropology-inventory/docs/blob/main/api/api.md). If you just want to spin up a local instance of the frontend quickly, then first begin by cloning the latest version of the repository:
+To get started, it is highly recommended to check out the developer documentation [here](https://github.com/anthropology-inventory/docs/blob/main/frontend/frontend.md). If you just want to spin up a local instance of the frontend quickly, then first begin by cloning the latest version of the repository:
 
 `https://github.com/anthropology-inventory/inventory.git`
 
