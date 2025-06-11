@@ -141,15 +141,20 @@ textarea {
     height: 60px;
     color: white;
     font-size: 1.2rem;
-    background-color: #1aac83;
+    /* background-color: #1aac83; */
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    justify-self: center;
 }
 
 #submit-btn:hover,
 #login-btn:hover {
-    background-color: #179974;
+    /* background-color: #179974; */
+}
+
+#login-btn {
+    margin-top: 50px;
 }
 
 .hint {

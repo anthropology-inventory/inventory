@@ -5,7 +5,11 @@ import PropTypes from 'prop-types'
 import { BsPencilSquare, BsTrash3Fill } from 'react-icons/bs'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'
 import PlaceholderImg from '../../assets/images/Image-not-found.png'
+import {button} from '../../styles/CustomThemes'
+import { ThemeProvider, Box } from '@mui/material'
+import { ToastContainer, toast } from 'react-toastify'
 
 const SpecimenCard = ({ specimen, onDelete }) => {
   // Card Menu Btns
@@ -14,37 +18,70 @@ const SpecimenCard = ({ specimen, onDelete }) => {
   // DELETE target card that user clicked the trash button
   const handleDelete = async () => {
     // A window to double check if you really REALLY want to delete this specimen
-    if (!window.confirm('Are you sure you want to delete this specimen? THERE IS NO UNDO!')) return
-
-    setIsDeleting(true) // Extra protection for the delete btn
-
-    const API_URI = import.meta.env.VITE_API_BASE_URI
-
-    const token = localStorage.getItem('token')
-
-    try {
-      const response = await fetch(`${API_URI}/api/specimens/${specimen._id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+    
+    return (
+      toast.info(({closeToast}) => (
+        <div>
+          Are you sure you want to delete this artifact?
+          <Box id="delete-popup">
+            <ThemeProvider theme={button}>
+              <Button 
+                variant='contained'
+                color="back"
+                onClick={closeToast}>
+                No, don't delete
+              </Button>
+              <Button
+                variant='contained'
+                color="delete"
+                onClick={() => {
+                  console.log('Deleted!');
+                  closeToast();
+                }}
+              >
+                Yes, delete this artifact
+              </Button>
+            </ThemeProvider>
+          </Box>
+        </div>
+      ), {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
       })
+    )
+    // if (!window.confirm('Are you sure you want to delete this specimen? THERE IS NO UNDO!')) return
 
-      const data = await response.json()
+    // setIsDeleting(true) // Extra protection for the delete btn
 
-      if (response.ok) {
-        // makes sure that onDelete is defined
-        if (onDelete) onDelete(specimen._id)
-      } else {
-        throw new Error(data.message || 'Failed to delete specimen.')
-      }
-    } catch (error) {
-      console.error('Error deleting specimen:', error)
-      alert(error.message)
-    } finally {
-      setIsDeleting(false)
-    }
+    // const API_URI = import.meta.env.VITE_API_BASE_URI
+
+    // const token = localStorage.getItem('token')
+
+    // try {
+    //   const response = await fetch(`${API_URI}/api/specimens/${specimen._id}`, {
+    //     method: 'DELETE',
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //       'Content-Type': 'application/json'
+    //     }
+    //   })
+
+    //   const data = await response.json()
+
+    //   if (response.ok) {
+    //     // makes sure that onDelete is defined
+    //     if (onDelete) onDelete(specimen._id)
+    //   } else {
+    //     throw new Error(data.message || 'Failed to delete specimen.')
+    //   }
+    // } catch (error) {
+    //   console.error('Error deleting specimen:', error)
+    //   alert(error.message)
+    // } finally {
+    //   setIsDeleting(false)
+    // }
   }
 
   return (
@@ -52,7 +89,11 @@ const SpecimenCard = ({ specimen, onDelete }) => {
       <Link className="specimen-link" to={`/specimen/${specimen._id}`}>
         <div className="specimen-img">
           <img
-            src={specimen.images || PlaceholderImg}
+            src={
+              specimen.images?.[0]
+                ? specimen.images[0]
+                : PlaceholderImg
+            }
             alt={specimen.nickName || 'Unknown Specimen'}
             className="specimen-image"
           />
@@ -62,20 +103,28 @@ const SpecimenCard = ({ specimen, onDelete }) => {
         <h3>{specimen.nickName ? specimen.nickName : specimen.genus + ' ' + specimen.species}</h3>
         <p>{specimen.specimenId}</p>
         <div className="specimen-card-btns">
-          <Tooltip title="Edit artifact" placement="top" arrow>
-            <IconButton id="edit-btn">
-              <BsPencilSquare />
-              <Link
-                className="specimen-card-btns-update"
-                to={`/UpdateProduct/${specimen._id}`}
-              ></Link>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete artifact" placement="top" arrow>
-            <IconButton id="delete-btn" onClick={handleDelete} disabled={isDeleting}>
-              <BsTrash3Fill />
-            </IconButton>
-          </Tooltip>
+          <ThemeProvider theme={button}>
+            <Tooltip title="Edit artifact" placement="top" arrow>
+              <Link to={`/UpdateProduct/${specimen._id}`}>
+                <IconButton
+                  color="edit"
+                  size='medium'
+                >
+                  <BsPencilSquare/>
+                </IconButton>
+              </Link>
+            </Tooltip>
+            <Tooltip title="Delete artifact" placement="top" arrow>
+              <IconButton 
+                color="delete"
+                size="medium"
+                onClick={handleDelete} 
+                disabled={isDeleting}
+              >
+                <BsTrash3Fill />
+              </IconButton>
+            </Tooltip>
+          </ThemeProvider>
         </div>
       </div>
     </div>

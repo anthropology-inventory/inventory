@@ -14,10 +14,13 @@ import {
   TableContainer,
   TableHead,
   Paper,
-  Button
+  Button,
+  ThemeProvider
 } from '@mui/material'
 import { fetchSpecimenById } from '../utils/api'
+import { button } from '../styles/CustomThemes'
 import '../styles/index.css'
+import { BsArrowLeftCircle, BsPencilSquare } from "react-icons/bs";
 
 export default function SpecimenDetail() {
   const { id } = useParams()
@@ -48,6 +51,35 @@ export default function SpecimenDetail() {
   return (
     <div className="sd-container">
       <Container maxWidth="xl">
+        <Stack 
+        direction="row" 
+        spacing={2}
+        sx= {{
+          margin: '0px 0px 40px 0px'
+        }}>
+          <ThemeProvider theme={button}>
+            <Button
+              variant="contained"
+              className="sd-back-btn"
+              color="back"
+              component={Link}
+              to="/SpecimensExplorer"
+              startIcon={<BsArrowLeftCircle/>}
+            >
+              Back to Inventory
+            </Button>
+            <Button
+              variant="contained"
+              id="sd-back-btn"
+              color="edit"
+              component={Link}
+              to={`/UpdateProduct/${specimen._id}`}
+              startIcon={<BsPencilSquare/>}
+            >
+              Edit
+            </Button>
+          </ThemeProvider>
+        </Stack>
         <Grid2 container spacing={2}>
           <Grid2 size={12}>
             {/* Title */}
@@ -99,13 +131,20 @@ export default function SpecimenDetail() {
             <Card variant="outlined" className="sd-img-card">
               <Box sx={{ p: 3 }} className="sd-card">
                 <img
-                  src={specimen.images || PlaceholderImg}
+                  src={
+                    specimen.images && specimen.images.length > 0
+                      ? specimen.images[0]
+                      : 'fallback-image.jpg'
+                  }
                   alt={specimen.nickName || 'Specimen Image'}
                   className="sd-img"
                 />
-                <Typography variant="body1" sx={{ pt: 2, color: 'text.secondary' }}>
-                  {specimen.description}
-                </Typography>
+                <Box>
+                  <Typography variant="h6">Description</Typography>
+                  <Typography variant="body1" sx={{ pt: 2, color: 'text.secondary' }}>
+                    {specimen.description}
+                  </Typography>
+                </Box>
               </Box>
             </Card>
           </Grid2>
@@ -160,24 +199,6 @@ export default function SpecimenDetail() {
             </TableRow>
           </Table>
         </TableContainer>
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            className="sd-back-btn"
-            component={Link}
-            to="/SpecimensExplorer"
-          >
-            Back to Inventory
-          </Button>
-          <Button
-            variant="contained"
-            className="sd-back-btn"
-            component={Link}
-            to={`/UpdateProduct/${specimen._id}`}
-          >
-            Edit
-          </Button>
-        </Stack>
       </Container>
       <p></p>
     </div>

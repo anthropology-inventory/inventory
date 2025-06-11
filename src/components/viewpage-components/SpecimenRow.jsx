@@ -9,7 +9,7 @@ const SpecimenRow = ({ specimen, tableColumns }) => {
         <img
           src={
             specimen.images?.[0]
-              ? `http://localhost:3001${specimen.images[0]}`
+              ? specimen.images[0]
               : 'http://localhost:3001/uploads/image-not-found.jpg'
           }
           alt="Specimen"
