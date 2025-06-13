@@ -1,5 +1,4 @@
 // SpecimenCard is a component that shows in grid view
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { BsPencilSquare, BsTrash3Fill } from 'react-icons/bs'
@@ -13,40 +12,39 @@ import { toast } from 'react-toastify'
 
 const SpecimenCard = ({ specimen, onDelete }) => {
   const handleDelete = async () => {
-    return (
-      toast(({closeToast}) => (
-        <div id="delete-popup-content">
-          <BsTrash3Fill id='trash-icon'/>
-          <p>Are you sure you want to delete this artifact?</p>
-          <Box id="delete-popup">
-            <ThemeProvider theme={button}>
-              <Button 
-                variant='contained'
-                color="back"
-                onClick={closeToast}>
-                No, keep it
-              </Button>
-              <Button
-                variant='contained'
-                color="delete"
-                onClick={() => {
-                  deleteArtifact(specimen, onDelete)
-                  closeToast();
-                }}
-              >
-                Yes, delete it
-              </Button>
-            </ThemeProvider>
-          </Box>
-        </div>
-      ), {
-        position: 'top-center',
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        className: "confirm-delete-popup"
-      })
-    )
+    console.log('You clicked delete!')
+    toast(({closeToast}) => (
+      <div id="delete-popup-content">
+        <BsTrash3Fill id='trash-icon'/>
+        <p>Are you sure you want to delete this artifact?</p>
+        <Box id="delete-popup">
+          <ThemeProvider theme={button}>
+            <Button 
+              variant='contained'
+              color="back"
+              onClick={closeToast}>
+              No, keep it
+            </Button>
+            <Button
+              variant='contained'
+              color="delete"
+              onClick={() => {
+                deleteArtifact(specimen, onDelete)
+                closeToast();
+              }}
+            >
+              Yes, delete it
+            </Button>
+          </ThemeProvider>
+        </Box>
+      </div>
+    ), {
+      position: 'top-center',
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      className: "confirm-delete-popup"
+    })
   }
 
   return (
@@ -73,7 +71,7 @@ const SpecimenCard = ({ specimen, onDelete }) => {
               <Link to={`/UpdateArtifact/${specimen._id}`}>
                 <IconButton
                   color="edit"
-                  size='medium'
+                  size='small'
                 >
                   <BsPencilSquare/>
                 </IconButton>
@@ -82,7 +80,7 @@ const SpecimenCard = ({ specimen, onDelete }) => {
             <Tooltip title="Delete artifact" placement="top" arrow>
               <IconButton 
                 color="delete"
-                size="medium"
+                size="small"
                 onClick={handleDelete} 
               >
                 <BsTrash3Fill />
