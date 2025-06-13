@@ -139,7 +139,7 @@ export const addArtifact = async (formData) => {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json'
       },
-      body: form,
+      body: form
     })
 
     if (!response.ok) {
@@ -176,13 +176,28 @@ export const getArtifactById = async (id) => {
 
 export const updateArtifact = async (id, formData) => {
   try {
+    const form = new FormData()
+
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] !== null && formData[key] !== '') {
+        // Only append the image if it's a File
+        if (key === 'image') {
+          if (formData.image instanceof File) {
+            form.append('image', formData.image)
+          }
+        } else {
+          form.append(key, formData[key])
+        }
+      }
+    })
+
     const response = await fetch(API_URI + '/api/specimens/' + id, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        Accept: 'application/json'
       },
-      body: JSON.stringify(formData)
+      body: form
     })
 
     if (!response.ok) {
