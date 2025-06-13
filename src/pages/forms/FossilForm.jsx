@@ -75,7 +75,10 @@ const FossilForm = ({mode, artifactId }) => {
             })
           }
 
-          setFormData(artifact)
+          setFormData((prev) => ({
+            ...prev,
+            ...artifact
+          }))
 
           // If there is an artifact image, we'll show the preview
           if (artifact.image) {
