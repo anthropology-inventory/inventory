@@ -1,3 +1,29 @@
+/**
+ * @file formOptions.jsx
+ * @description Contains reusable select/dropdown options for forms across the application.
+ * These options are used to populate selection fields such as country, storage location, material, etc.
+ *
+ * @author Giovan Cervantes
+ *
+ * @note To update a dropdown list (e.g., countries), make changes here and ensure the related UI components re-import this file.
+ *
+ * @see Used in: FossilForm.jsx and other components using <Select> or <Autocomplete>
+ */
+
+/**
+ * An array of category options used for artifact classification in a dropdown menu.
+ * Each option includes a value, a display label, and optionally a disabled state.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value used for the category.
+ * @property {string} label - The human-readable label for the category.
+ * @property {boolean} [isDisabled] - Optional flag to disable the option in the UI.
+ *
+ * @example
+ * // Usage with a select component:
+ * <Select options={categoryOptions} />
+ */
 export const categoryOptions = [
   { value: 'Fossil', label: 'Fossil' },
   { value: 'Pottery', label: 'Pottery', isDisabled: true },
@@ -6,12 +32,41 @@ export const categoryOptions = [
   { value: 'Stone Tool', label: 'Stone Tool', isDisabled: true }
 ]
 
+/**
+ * An array of location options representing where artifacts are stored.
+ * Each option includes a value used internally and a label for display in the UI.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal identifier for the storage location type.
+ * @property {string} label - The user-friendly name shown in the interface.
+ *
+ * @example
+ * // Usage with a select component:
+ * <Select options={locationOptions} />
+ */
 export const locationOptions = [
   { value: 'cabinet-row', label: 'Cabinet & Row' },
   { value: 'drawer', label: 'Drawer' },
   { value: 'shelf', label: 'Shelf' }
 ]
 
+/**
+ * A grouped array of selectable storage location options for cabinets and rows.
+ * Each group has a label (e.g., "Cabinets" or "Row") and an array of corresponding options.
+ * This structure is commonly used in UI components like grouped dropdowns or selects.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} label - The name of the group (e.g., "Cabinets", "Row").
+ * @property {Array<Object>} options - The list of selectable items within each group.
+ * @property {string} options[].value - The internal value representing the option.
+ * @property {string} options[].label - The display name shown to users in the UI.
+ *
+ * @example
+ * // Used in a grouped select component:
+ * <Select options={cabinetAndRowOptions} isGrouped />
+ */
 export const cabinetAndRowOptions = [
   {
     label: 'Cabinets',
@@ -41,6 +96,18 @@ export const cabinetAndRowOptions = [
   }
 ]
 
+/**
+ * A list of selectable drawer locations for artifact storage.
+ * Each item contains a value and a label for use in dropdown menus or form components.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value representing the drawer identifier.
+ * @property {string} label - The human-readable label shown in the UI.
+ *
+ * @example
+ * <Select options={drawerOptions} />
+ */
 export const drawerOptions = [
   { value: 'Drawer 1', label: 'Drawer 1' },
   { value: 'Drawer 2', label: 'Drawer 2' },
@@ -56,6 +123,18 @@ export const drawerOptions = [
   { value: 'Drawer 12', label: 'Drawer 12' }
 ]
 
+/**
+ * A list of known artifact manufacturers or sources.
+ * Used to tag specimens with their origin for tracking or cataloging purposes.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value for the manufacturer.
+ * @property {string} label - The display label shown in the UI.
+ *
+ * @example
+ * <Select options={manufacturerOptions} />
+ */
 export const manufacturerOptions = [
   { value: 'Bones Clones', label: 'Bones Clones' },
   { value: 'Skulls Unlimited', label: 'Skulls Unlimited' },
@@ -63,6 +142,18 @@ export const manufacturerOptions = [
   { value: 'Unknown', label: 'Unknown' }
 ]
 
+/**
+ * A list of possible materials used in the creation or preservation of artifacts.
+ * Helps identify or categorize specimens by their composition.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value for the material type.
+ * @property {string} label - The name shown in UI dropdowns or forms.
+ *
+ * @example
+ * <Select options={materialOptions} />
+ */
 export const materialOptions = [
   { value: 'Bone', label: 'Bone' },
   { value: 'Plaster', label: 'Plaster' },
@@ -72,6 +163,19 @@ export const materialOptions = [
   { value: 'Unknown', label: 'Unknown' }
 ]
 
+/**
+ * A comprehensive list of countries formatted for use in dropdown menus or selection components.
+ * Each country is represented as an object with a `value` and a `label`, both containing the country name.
+ * This array is useful for forms requiring user input of nationality, place of origin, or location-based metadata.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value representing the country (typically the full country name).
+ * @property {string} label - The user-facing label shown in the UI (also the country name).
+ *
+ * @example
+ * <Select options={countryOptions} placeholder="Select a country" />
+ */
 export const countryOptions = [
   { value: 'Afghanistan', label: 'Afghanistan' },
   { value: 'Åland Islands', label: 'Åland Islands' },

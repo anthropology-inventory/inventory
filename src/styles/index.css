@@ -145,41 +145,12 @@ body {
   margin: 0 auto 20px auto;
   padding: 0 20px;
   max-width: 1200px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 @media (min-width: 1200px) {
   #dashboard-top {
     padding: 0;
   }
-}
-
-#view-btn,
-#add-btn {
-  text-decoration: none;
-  text-align: center;
-  border: none;
-  border-radius: 4px;
-  padding: 6px 20px;
-  color: white;
-  display: flex;
-  align-items: center;
-  column-gap: 6px;
-  white-space: nowrap;
-}
-
-#view-btn {
-  background-color: #25255e;
-}
-
-#add-btn {
-  background-color: #1aac83;
-}
-
-#view-btn:hover,
-#add-btn:hover {
-  filter: brightness(1.2);
 }
 
 #dashboard {
@@ -306,12 +277,6 @@ body {
   margin-bottom: 15px;
 }
 
-.sd-back-btn {
-  /* background-color: #1b1b1b !important; */
-}
-#sd-edit-btn {
-  color: white !important;
-}
 .sd-table-container .sd-table-bold {
   font-weight: bold;
 }

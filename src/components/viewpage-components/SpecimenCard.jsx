@@ -9,37 +9,32 @@ import Button from '@mui/material/Button'
 import PlaceholderImg from '../../assets/images/Image-not-found.png'
 import {button} from '../../styles/CustomThemes'
 import { ThemeProvider, Box } from '@mui/material'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const SpecimenCard = ({ specimen, onDelete }) => {
-  // Card Menu Btns
-  const [isDeleting, setIsDeleting] = useState(false)
-
-  // DELETE target card that user clicked the trash button
   const handleDelete = async () => {
-    // A window to double check if you really REALLY want to delete this specimen
-    
     return (
-      toast.info(({closeToast}) => (
-        <div>
-          Are you sure you want to delete this artifact?
+      toast(({closeToast}) => (
+        <div id="delete-popup-content">
+          <BsTrash3Fill id='trash-icon'/>
+          <p>Are you sure you want to delete this artifact?</p>
           <Box id="delete-popup">
             <ThemeProvider theme={button}>
               <Button 
                 variant='contained'
                 color="back"
                 onClick={closeToast}>
-                No, don't delete
+                No, keep it
               </Button>
               <Button
                 variant='contained'
                 color="delete"
                 onClick={() => {
-                  console.log('Deleted!');
+                  deleteArtifact(specimen, onDelete)
                   closeToast();
                 }}
               >
-                Yes, delete this artifact
+                Yes, delete it
               </Button>
             </ThemeProvider>
           </Box>
@@ -49,39 +44,9 @@ const SpecimenCard = ({ specimen, onDelete }) => {
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
+        className: "confirm-delete-popup"
       })
     )
-    // if (!window.confirm('Are you sure you want to delete this specimen? THERE IS NO UNDO!')) return
-
-    // setIsDeleting(true) // Extra protection for the delete btn
-
-    // const API_URI = import.meta.env.VITE_API_BASE_URI
-
-    // const token = localStorage.getItem('token')
-
-    // try {
-    //   const response = await fetch(`${API_URI}/api/specimens/${specimen._id}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //       'Content-Type': 'application/json'
-    //     }
-    //   })
-
-    //   const data = await response.json()
-
-    //   if (response.ok) {
-    //     // makes sure that onDelete is defined
-    //     if (onDelete) onDelete(specimen._id)
-    //   } else {
-    //     throw new Error(data.message || 'Failed to delete specimen.')
-    //   }
-    // } catch (error) {
-    //   console.error('Error deleting specimen:', error)
-    //   alert(error.message)
-    // } finally {
-    //   setIsDeleting(false)
-    // }
   }
 
   return (
@@ -105,7 +70,7 @@ const SpecimenCard = ({ specimen, onDelete }) => {
         <div className="specimen-card-btns">
           <ThemeProvider theme={button}>
             <Tooltip title="Edit artifact" placement="top" arrow>
-              <Link to={`/UpdateProduct/${specimen._id}`}>
+              <Link to={`/UpdateArtifact/${specimen._id}`}>
                 <IconButton
                   color="edit"
                   size='medium'
@@ -119,7 +84,6 @@ const SpecimenCard = ({ specimen, onDelete }) => {
                 color="delete"
                 size="medium"
                 onClick={handleDelete} 
-                disabled={isDeleting}
               >
                 <BsTrash3Fill />
               </IconButton>
@@ -134,6 +98,31 @@ const SpecimenCard = ({ specimen, onDelete }) => {
 SpecimenCard.propTypes = {
   specimen: PropTypes.any,
   onDelete: PropTypes.func
+}
+
+const deleteArtifact = async (specimen, onDelete) => {
+  const API_URI = import.meta.env.VITE_API_BASE_URI
+  const token = localStorage.getItem('token')
+  try {
+    const response = await fetch(`${API_URI}/api/specimens/${specimen._id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      if (onDelete) onDelete(specimen._id)
+    } else {
+      throw new Error(data.message || 'Failed to delete specimen.')
+    }
+  } catch (error) {
+    console.error('Error deleting specimen:', error)
+    alert(error.message)
+  }
 }
 
 export default SpecimenCard

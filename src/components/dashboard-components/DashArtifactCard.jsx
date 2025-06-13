@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip'
-// import IconButton from '@mui/material/IconButton'
 
 /**
  * Card component for displaying artifact details in the dashboard.

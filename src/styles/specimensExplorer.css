@@ -309,6 +309,28 @@
 #delete-popup {
   display: flex;
   white-space: nowrap;
+  column-gap: 10px;
+  justify-content: center;
+}
+
+#trash-icon {
+  color: rgb(221, 2, 2);
+  background-color: rgba(255, 0, 0, 0.25);
+  border-radius: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  width: 30px;
+  height: 30px;
+}
+
+#delete-popup-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.confirm-delete-popup {
+  width: 100%;
 }
 
 /* list-view

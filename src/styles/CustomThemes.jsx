@@ -1,14 +1,16 @@
-import {
-  createTheme,
-  alpha,
-  getContrastRatio,
-} from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 export const button = createTheme({
     palette: {
         submit: {
             main: '#1aac83',
-            dark: '#179974'
+            dark: '#179974',
+            contrastText: 'white'
+        },
+        view: {
+            main: '#25255e',
+            dark: '#19193d',
+            contrastText: 'white'
         },
         loading: {
             main: '#4371d6'
