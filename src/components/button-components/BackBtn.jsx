@@ -1,6 +1,6 @@
 import { button } from '../../styles/CustomThemes'
 import { Button, ThemeProvider } from '@mui/material'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link} from 'react-router-dom'
 import { BsArrowLeftCircle } from "react-icons/bs"
 
 /**
@@ -18,6 +18,7 @@ export default function BackButton() {
     const navigate = useNavigate()
     const handleGoBack = () => {
         navigate(-1)
+        setTimeout(() => window.location.reload(), .01)
     }
     return (
         <ThemeProvider theme={button}>

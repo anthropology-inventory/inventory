@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { BsFillGridFill, BsListUl } from 'react-icons/bs'
 import { fetchArtifacts } from '../utils/api.jsx'
@@ -87,6 +87,7 @@ export default function View() {
           <h1 className="error">{fetchError}</h1>
         ) : (
           <CollectionView
+            key={location.key}
             specimens={filteredSpecimens}
             viewType={viewType}
             onDelete={handleDelete}
