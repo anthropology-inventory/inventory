@@ -7,6 +7,17 @@ import {
   BsBoxArrowRight
 } from 'react-icons/bs'
 
+/**
+ * NavBar component renders the navigation header for the application.
+ * Displays different navigation links depending on whether the user is logged in.
+ * The login state is determined by the presence of a 'token' in localStorage.
+ *
+ * @component
+ * @returns {JSX.Element} The navigation bar JSX element.
+ *
+ * @example
+ * <NavBar />
+ */
 const NavBar = () => {
   const isLoggedIn = !!localStorage.getItem('token')
 

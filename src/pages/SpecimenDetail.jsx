@@ -21,6 +21,7 @@ import { fetchSpecimenById } from '../utils/api'
 import { button } from '../styles/CustomThemes'
 import '../styles/index.css'
 import { BsArrowLeftCircle, BsPencilSquare } from "react-icons/bs";
+import BackButton from '../components/button-components/BackBtn'
 
 export default function SpecimenDetail() {
   const { id } = useParams()
@@ -58,22 +59,13 @@ export default function SpecimenDetail() {
           margin: '0px 0px 40px 0px'
         }}>
           <ThemeProvider theme={button}>
-            <Button
-              variant="contained"
-              className="sd-back-btn"
-              color="back"
-              component={Link}
-              to="/SpecimensExplorer"
-              startIcon={<BsArrowLeftCircle/>}
-            >
-              Back to Inventory
-            </Button>
+            <BackButton />
             <Button
               variant="contained"
               id="sd-back-btn"
               color="edit"
               component={Link}
-              to={`/UpdateProduct/${specimen._id}`}
+              to={`/UpdateArtifact/${specimen._id}`}
               startIcon={<BsPencilSquare/>}
             >
               Edit

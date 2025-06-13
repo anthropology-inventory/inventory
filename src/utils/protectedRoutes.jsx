@@ -1,15 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard.jsx'
 import SpecimensExplorer from '../pages/SpecimensExplorer.jsx'
-import AddArtifact from '../pages/AddArtifact.jsx'
+import FossilForm from '../pages/forms/FossilForm.jsx'
 import SpecimenDetail from '../pages/SpecimenDetail.jsx'
-import UpdateProduct from '../pages/UpdateProduct.jsx'
 import LoginForm from '../pages/forms/LoginForm.jsx'
 import Logout from '../pages/Logout.jsx'
 
 function ProtectedRoutes() {
   let loggedIn = localStorage.getItem('user') && localStorage.getItem('token')
-
   return (
     <div>
       { loggedIn ? 
@@ -32,11 +30,18 @@ function ProtectedRoutes() {
             />
             <Route 
               path="/AddArtifact" 
-              element={<AddArtifact/>} 
+              element={
+                <FossilForm
+                mode='add'
+              />} 
             />
             <Route 
-              path="/UpdateProduct/:id" 
-              element={<UpdateProduct/>} 
+              path="/UpdateArtifact/:id" 
+              element={
+              <FossilForm
+                mode='update'
+              />
+              } 
             />
             <Route path="/LoginForm" element={<Dashboard/>}/>
             <Route 
