@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import FormFieldset from '../FormFieldset'
-import FormInput from '../FormInput'
 import FormTextarea from '../FormTextarea'
 import FormSelect from '../FormSelect'
 import { selectStyles } from '../../../assets/forms/selectStyles'
@@ -18,9 +17,13 @@ function DescriptionNotes({
   selectChangeFunc
 }) {
   const [locationType, setLocationType] = useState('')
+
   const handleChange = (e) => {
     const value = e.target.value
     setLocationType(value)
+    if (value === 'shelf') {
+    selectChangeFunc({ label: 'Shelf', value: 'Shelf' }, 'location')
+  }
   }
   return (
     <FormFieldset
@@ -62,6 +65,7 @@ function DescriptionNotes({
                 value="shelf"
                 name="locationType"
                 onChange={handleChange}
+                checked={locationType === 'shelf'}
               />
               <label>Shelf</label>
             </div>
@@ -116,20 +120,6 @@ function locationDropdown(selection, locationData, selectChangeFunc) {
         selectStyles={selectStyles(!!locationData.value)}
         hasTooltip={true}
         tooltipTxt="Drawer number the artifact is stored."
-      />
-    )
-  } else if (selection == 'shelf') {
-    return (
-      <FormSelect
-        label="Shelf"
-        selectName="location"
-        selectValue="Shelf"
-        selectOptions={[{ label: 'Shelf', value: 'Shelf' }]}
-        changeFunc={selectChangeFunc}
-        selectStyles={selectStyles(true)}
-        hasTooltip={true}
-        tooltipTxt="Shelf the artifact is stored."
-        disable={true}
       />
     )
   }

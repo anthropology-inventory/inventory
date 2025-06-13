@@ -2,7 +2,8 @@
     justify-self: center;
 }
 
-form {
+form, 
+#update-form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,6 +12,11 @@ form {
     max-width: 1200px;
     min-width: fit-content;
     margin: 0 auto 40px auto;
+}
+
+#back-btn {
+    width: 75%;
+    max-width: 800px;
 }
 
 input,
@@ -141,16 +147,10 @@ textarea {
     height: 60px;
     color: white;
     font-size: 1.2rem;
-    /* background-color: #1aac83; */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     justify-self: center;
-}
-
-#submit-btn:hover,
-#login-btn:hover {
-    /* background-color: #179974; */
 }
 
 #login-btn {

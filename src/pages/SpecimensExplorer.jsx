@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
 import { IconButton, Tooltip, Box } from '@mui/material'
-import { BsPlusCircle, BsFillGridFill, BsListUl } from 'react-icons/bs'
+import { BsFillGridFill, BsListUl } from 'react-icons/bs'
 import { fetchArtifacts } from '../utils/api.jsx'
+import AddArtifactBtn from '../components/button-components/AddArtifactBtn.jsx'
 
 // Components
 import Sidebar from '../components/viewpage-components/Sidebar'
@@ -12,7 +12,6 @@ import CollectionView from '../components/viewpage-components/CollectionView.jsx
 // CSS
 import '../styles/index.css'
 import '../styles/specimensExplorer.css'
-import { Link } from 'react-router-dom'
 import SearchBar from '../components/SearchBar.jsx'
 
 export default function View() {
@@ -69,10 +68,7 @@ export default function View() {
       <div className="specimens-view-container">
         <Box sx={{ display: 'flex' }}>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <NavLink className="view-add-btn" to="/AddArtifact">
-            <BsPlusCircle />
-            Add artifact
-          </NavLink>
+          <AddArtifactBtn />
         </Box>
 
         <div className="view-controls" id="grid-list-toggle" onClick={toggleView}>

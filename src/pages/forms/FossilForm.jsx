@@ -19,8 +19,12 @@ import FormSelect from '../../components/form-components/FormSelect'
 import DiscoveryDetails from '../../components/form-components/form-sections/DiscoveryDetails'
 import DescriptionNotes from '../../components/form-components/form-sections/DescriptionNotes'
 import PhotoUpload from '../../components/form-components/PhotoUpload'
+import BackButton from '../../components/button-components/BackBtn'
+import { ThemeProvider, Button, Box } from '@mui/material'
+import {button} from '../../styles/CustomThemes'
 
-const FossilForm = ({ mode = 'add', artifactId }) => {
+const FossilForm = ({mode, artifactId }) => {
+
   // Gets the id from the params or the artifact id, a double check for getting the correct ID if there
   const { id: paramId } = useParams()
   const id = artifactId || paramId
@@ -89,8 +93,6 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
             theme: 'colored',
             transition: Bounce
           })
-        } finally {
-          setLoading(false)
         }
       }
       fetchArtifact()
@@ -107,8 +109,6 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
   }
 
   const handleSelectChange = (selectedOption, name) => {
-    // const input = validateInput(name, selectedOption.value)
-    // setErrors(input)
     if (Array.isArray(selectedOption)) {
       const cabinet = selectedOption.find((opt) => opt.value.startsWith('Cabinet'))
       const row = selectedOption.find((opt) => opt.value.startsWith('Row'))
@@ -125,10 +125,6 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
       setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
       console.log(formData.location)
     }
-
-    // if (Object.keys(input).length === 0) {
-    //   setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
-    // }
   }
 
   const handleSubmit = async (e) => {
@@ -173,6 +169,9 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
 
   return (
     <form onSubmit={handleSubmit} id="fossil-form" autoComplete="on">
+      <Box id='back-btn'>
+        <BackButton />
+      </Box>
       <ToastContainer />
       <h2 className="form-title">{mode === 'add' ? 'Add Fossil' : 'Update Artifact'}</h2>
       <FormFieldset
@@ -319,9 +318,16 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
           />
         ]}
       />
-      <button type="submit" id="submit-btn">
-        {mode === 'add' ? 'Add to collection' : 'Update to collection'}
-      </button>
+      <ThemeProvider theme={button}>
+        <Button
+          variant="contained"
+          id="submit-btn"
+          color="submit"
+          type='submit'
+        >
+          {mode === 'add' ? 'Add to collection' : 'Update to collection'}
+        </Button>
+      </ThemeProvider>
     </form>
   )
 }

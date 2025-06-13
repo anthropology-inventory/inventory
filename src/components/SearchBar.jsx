@@ -38,30 +38,6 @@ const SearchBar = (props) => {
     fetchSpecimens()
   }, [])
 
-  // console.log(specimens)
-
-  // const debounce = (func, delay) => {
-  //   let timeoutId
-  //   return (...args) => {
-  //     clearTimeout(timeoutId)
-  //     timeoutId = setTimeout(() => func(...args), delay)
-  //   }
-  // }
-
-  // const handleSearch = useCallback(
-  //   debounce((term) => {
-  //     if (term.trim() === '') {
-  //       setSearchResults([])
-  //     } else {
-  //       const results = specimens.filter((specimen) =>
-  //         specimen.description.toLowerCase().includes(term.toLowerCase())
-  //       )
-  //       setSearchResults(results)
-  //     }
-  //   }, 300),
-  //   [specimens]
-  // )
-
   // Shows the data of what the user types in the search bar and shows a dropdown of 5 to select from
   useEffect(() => {
     if (searchTerm.trim() === '') {

@@ -1,10 +1,8 @@
-import DashArtifactCard from '../components/dashboard-components/DashArtifactCard'
-import DashboardWidget from '../components/dashboard-components/DashboardWidget'
+import { useEffect, useState } from 'react'
+// Mui
 import { PieChart } from '@mui/x-charts/PieChart'
 import { cheerfulFiestaPalette } from '@mui/x-charts'
-import { BsPlusCircle, BsEye } from 'react-icons/bs'
-import SearchBar from '../components/SearchBar'
-import { useEffect, useState } from 'react'
+// API
 import {
   fetchTotalRecords,
   fetchTotalCost,
@@ -12,7 +10,12 @@ import {
   fetchAllArtifactsByCategory,
   fetchRecentSpecimens
 } from '../utils/api'
-import { NavLink } from 'react-router-dom'
+// Custom Components
+import SearchBar from '../components/SearchBar'
+import AddArtifactBtn from '../components/button-components/AddArtifactBtn'
+import ViewCollectionBtn from '../components/button-components/ViewCollectionBtn'
+import DashArtifactCard from '../components/dashboard-components/DashArtifactCard'
+import DashboardWidget from '../components/dashboard-components/DashboardWidget'
 
 const Dashboard = () => {
   const [totalCount, setTotalCount] = useState(0)
@@ -37,14 +40,8 @@ const Dashboard = () => {
     <>
       <section id="dashboard-top">
         <SearchBar />
-        <NavLink id="view-btn" to="/SpecimensExplorer">
-          <BsEye />
-          View collection
-        </NavLink>
-        <NavLink id="add-btn" to="/AddArtifact">
-          <BsPlusCircle />
-          Add
-        </NavLink>
+        <ViewCollectionBtn />
+        <AddArtifactBtn />
       </section>
       <section id="dashboard">
         <DashboardWidget
@@ -131,7 +128,6 @@ const Dashboard = () => {
                 <DashArtifactCard
                   key={idx}
                   imgSrc={el.images[0]}
-                  // name={el.genus + ' ' + el.species}
                   name={el.nickName ? el.nickName : el.genus + ' ' + el.species}
                   specimenId={el.specimenId}
                   dateUpdated={el.updatedAt}
