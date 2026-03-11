@@ -1,6 +1,6 @@
 // const PORT = 3001
 // const API_URI = `http://localhost:` + PORT + `/api/specimens/`
-const API_URI = import.meta.env.VITE_API_BASE_URI
+const API_URI = import.meta.env.VITE_API_URI
 
 const token = localStorage.getItem('token')
 
