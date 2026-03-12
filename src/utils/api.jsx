@@ -1,6 +1,6 @@
 // const PORT = 3001
 // const API_URI = `http://localhost:` + PORT + `/api/specimens/`
-const API_URI = import.meta.env.VITE_API_URI
+const API_URI = import.meta.env.VITE_API_URI || import.meta.env.VITE_API_BASE_URI
 
 const token = localStorage.getItem('token')
 
@@ -237,21 +237,6 @@ export const saveNotesToLocalStorage = (id, notes) => {
   localStorage.setItem(`notes-${id}`, notes)
 }
 
-// Users - users will be hardcoded
-// export const signup = async (email, password) => {
-//   try {
-//     const res = await fetch('http://localhost:3001/api/signup', {
-//       method: 'POST',
-//       body: JSON.stringify({ email, password }),
-//       headers: { 'Content-Type': 'application/json' }
-//     })
-
-//     return res.json()
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
-
 export const login = async (email, password) => {
   try {
     const res = await fetch(`${API_URI}/api/login`, {
@@ -263,5 +248,31 @@ export const login = async (email, password) => {
     return res
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const signup = async (email, password) => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${API_URI}/api/signup`, {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    let data = {}
+    try {
+      data = await res.json()
+    } catch (error) {
+      data = { message: 'Unexpected response while creating user.' }
+    }
+
+    return { ok: res.ok, data }
+  } catch (err) {
+    console.log(err)
+    return { ok: false, data: { message: 'Network error while creating user.' } }
   }
 }

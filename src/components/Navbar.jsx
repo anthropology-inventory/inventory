@@ -4,6 +4,7 @@ import {
   BsClipboardData,
   BsClipboardPlus,
   BsPersonLock,
+  BsPersonPlus,
   BsBoxArrowRight
 } from 'react-icons/bs'
 
@@ -40,6 +41,10 @@ const NavBar = () => {
             <NavLink to="/AddArtifact" className="nav-link">
               <BsClipboardPlus />
               Manage Inventory
+            </NavLink>
+            <NavLink to="/CreateUser" className="nav-link">
+              <BsPersonPlus />
+              Create User
             </NavLink>
             <NavLink to="/logout" className="nav-link">
               <BsBoxArrowRight />
