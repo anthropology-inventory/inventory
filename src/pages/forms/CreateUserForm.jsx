@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Button, CircularProgress, ThemeProvider } from '@mui/material'
+import { Box, Button, CircularProgress, MenuItem, TextField, ThemeProvider } from '@mui/material'
 import { Bounce, toast } from 'react-toastify'
 import FormFieldset from '../../components/form-components/FormFieldset'
 import FormInput from '../../components/form-components/FormInput'
@@ -8,15 +8,18 @@ import { button } from '../../styles/CustomThemes'
 import { validateInput } from '../../utils/signIn_validation'
 import { signup } from '../../utils/api'
 
-export default function CreateUserForm() {
+export default function CreateUserForm({ onUserCreated }) {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: '',
+    isAdmin: false
   })
   const [errors, setErrors] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   })
   const [backendErrors, setBackendErrors] = useState({
     email: '',
@@ -24,18 +27,33 @@ export default function CreateUserForm() {
   })
   const [touched, setTouched] = useState({
     email: false,
-    password: false
+    password: false,
+    confirmPassword: false,
+    isAdmin: false
   })
   const [successMessage, setSuccessMessage] = useState('')
   const [serverMessage, setServerMessage] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    const validation = validateInput(name, value)
+    const parsedValue = name === 'isAdmin' ? value === 'true' : value
 
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    let validation = {}
+    if (name === 'email' || name === 'password') {
+      validation = validateInput(name, parsedValue)
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: parsedValue }))
     setTouched((prev) => ({ ...prev, [name]: true }))
-    setErrors((prev) => ({ ...prev, [name]: validation[name] || '' }))
+    setErrors((prev) => ({
+      ...prev,
+      [name]:
+        name === 'confirmPassword'
+          ? parsedValue !== formData.password
+            ? 'Passwords do not match.'
+            : ''
+          : validation[name] || ''
+    }))
     setBackendErrors((prev) => ({ ...prev, [name]: '' }))
     setServerMessage('')
     setSuccessMessage('')
@@ -49,30 +67,56 @@ export default function CreateUserForm() {
 
     const emailValidation = validateInput('email', formData.email)
     const passwordValidation = validateInput('password', formData.password)
+
     const nextErrors = {
       email: emailValidation.email || '',
-      password: passwordValidation.password || ''
+      password: passwordValidation.password || '',
+      confirmPassword:
+        formData.confirmPassword !== formData.password ? 'Passwords do not match.' : ''
     }
 
     setTouched({
       email: true,
-      password: true
+      password: true,
+      confirmPassword: true,
+      isAdmin: true
     })
     setErrors(nextErrors)
 
-    if (nextErrors.email || nextErrors.password) {
+    if (nextErrors.email || nextErrors.password || nextErrors.confirmPassword) {
       setLoading(false)
       return
     }
 
-    const result = await signup(formData.email, formData.password)
+    const result = await signup(formData.email, formData.password, formData.isAdmin)
 
     if (result.ok) {
-      setFormData({ email: '', password: '' })
-      setErrors({ email: '', password: '' })
-      setBackendErrors({ email: '', password: '' })
-      setTouched({ email: false, password: false })
+      setFormData({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        isAdmin: false
+      })
+      setErrors({
+        email: '',
+        password: '',
+        confirmPassword: ''
+      })
+      setBackendErrors({
+        email: '',
+        password: ''
+      })
+      setTouched({
+        email: false,
+        password: false,
+        confirmPassword: false,
+        isAdmin: false
+      })
       setSuccessMessage('User created successfully.')
+
+      if (onUserCreated) {
+        onUserCreated()
+      }
 
       toast.success('User created successfully.', {
         position: 'top-right',
@@ -145,6 +189,33 @@ export default function CreateUserForm() {
             hasTooltip={true}
             tooltipTxt={'Use at least 8 characters with letters, numbers, or symbols.'}
           />,
+          <FormInput
+            key="confirmPassword"
+            label="Confirm Password"
+            inputType="password"
+            inputName="confirmPassword"
+            placeholderTxt="Re-enter password..."
+            isRequired={true}
+            inputValue={formData.confirmPassword}
+            changeFunc={handleChange}
+            inputClass={touched.confirmPassword && errors.confirmPassword ? 'invalid' : ''}
+            validationErr={errors.confirmPassword}
+            hasTooltip={true}
+            tooltipTxt={'Both password fields must match.'}
+          />,
+          <TextField
+            key="isAdmin"
+            select
+            fullWidth
+            size="small"
+            label="User Type"
+            name="isAdmin"
+            value={String(formData.isAdmin)}
+            onChange={handleChange}
+          >
+            <MenuItem value="false">Standard User</MenuItem>
+            <MenuItem value="true">Admin User</MenuItem>
+          </TextField>,
           <ThemeProvider key="submit" theme={button}>
             <Button
               id="submit-btn"

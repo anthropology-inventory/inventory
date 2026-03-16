@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Checkbox, TextField } from '@mui/material'
+import { Box, Button, Checkbox, TextField, ThemeProvider } from '@mui/material'
 import { Bounce, toast } from 'react-toastify'
 import CreateUserForm from './forms/CreateUserForm.jsx'
 import { fetchUsers, deleteUser, updateUser } from '../utils/api'
+import { button } from '../styles/CustomThemes'
 
 export default function ManageUsers() {
   const [users, setUsers] = useState([])
@@ -88,115 +89,127 @@ export default function ManageUsers() {
   }
 
   return (
-    <Box sx={{ padding: 3 }}>
-      <CreateUserForm onUserCreated={loadUsers} />
+    <ThemeProvider theme={button}>
+      <Box id="manage-users-page">
+        <CreateUserForm onUserCreated={loadUsers} />
 
-      <Box sx={{ marginTop: 4 }}>
-        <h2>Current Users</h2>
+        <Box className="manage-users-section">
+          <h2>Current Users</h2>
 
-        {loading ? (
-          <p>Loading users...</p>
-        ) : users.length === 0 ? (
-          <p>No users found.</p>
-        ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'left', padding: '8px' }}>Email</th>
-                <th style={{ textAlign: 'left', padding: '8px' }}>Admin</th>
-                <th style={{ textAlign: 'left', padding: '8px' }}>Created</th>
-                <th style={{ textAlign: 'left', padding: '8px' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => {
-                const isEditing = editingUserId === user._id
-
-                return (
-                  <tr key={user._id}>
-                    <td style={{ padding: '8px' }}>
-                      {isEditing ? (
-                        <TextField
-                          size="small"
-                          value={editForm.email}
-                          onChange={(e) =>
-                            setEditForm((prev) => ({
-                              ...prev,
-                              email: e.target.value
-                            }))
-                          }
-                        />
-                      ) : (
-                        user.email
-                      )}
-                    </td>
-
-                    <td style={{ padding: '8px' }}>
-                      {isEditing ? (
-                        <Checkbox
-                          checked={editForm.isAdmin}
-                          onChange={(e) =>
-                            setEditForm((prev) => ({
-                              ...prev,
-                              isAdmin: e.target.checked
-                            }))
-                          }
-                        />
-                      ) : user.isAdmin ? (
-                        'Yes'
-                      ) : (
-                        'No'
-                      )}
-                    </td>
-
-                    <td style={{ padding: '8px' }}>
-                      {user.createdAt ? new Date(user.createdAt).toLocaleString() : '—'}
-                    </td>
-
-                    <td style={{ padding: '8px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                      {isEditing ? (
-                        <>
-                          <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={() => handleSaveEdit(user._id)}
-                          >
-                            Save
-                          </Button>
-                          <Button
-                            color="inherit"
-                            variant="outlined"
-                            onClick={handleCancelEdit}
-                          >
-                            Cancel
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={() => handleEditClick(user)}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            color="error"
-                            variant="contained"
-                            onClick={() => handleDelete(user._id)}
-                          >
-                            Delete
-                          </Button>
-                        </>
-                      )}
-                    </td>
+          {loading ? (
+            <p className="manage-users-message">Loading users...</p>
+          ) : users.length === 0 ? (
+            <p className="manage-users-message">No users found.</p>
+          ) : (
+            <div className="manage-users-table-wrapper">
+              <table className="manage-users-table">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Admin</th>
+                    <th>Created</th>
+                    <th>Actions</th>
                   </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        )}
+                </thead>
+                <tbody>
+                  {users.map((user) => {
+                    const isEditing = editingUserId === user._id
+
+                    return (
+                      <tr key={user._id}>
+                        <td>
+                          {isEditing ? (
+                            <TextField
+                              size="small"
+                              value={editForm.email}
+                              onChange={(e) =>
+                                setEditForm((prev) => ({
+                                  ...prev,
+                                  email: e.target.value
+                                }))
+                              }
+                            />
+                          ) : (
+                            <span className="user-email">{user.email}</span>
+                          )}
+                        </td>
+
+                        <td>
+                          {isEditing ? (
+                            <Checkbox
+                              checked={editForm.isAdmin}
+                              onChange={(e) =>
+                                setEditForm((prev) => ({
+                                  ...prev,
+                                  isAdmin: e.target.checked
+                                }))
+                              }
+                            />
+                          ) : (
+                            <span
+                              className={user.isAdmin ? 'admin-badge admin-yes' : 'admin-badge admin-no'}
+                            >
+                              {user.isAdmin ? 'Admin' : 'Standard'}
+                            </span>
+                          )}
+                        </td>
+
+                        <td>
+                          {user.createdAt ? new Date(user.createdAt).toLocaleString() : '—'}
+                        </td>
+
+                        <td>
+                          <div className="manage-users-actions">
+                            {isEditing ? (
+                              <>
+                                <Button
+                                  size="small"
+                                  color="submit"
+                                  variant="contained"
+                                  onClick={() => handleSaveEdit(user._id)}
+                                >
+                                  Save
+                                </Button>
+                                <Button
+                                  size="small"
+                                  color="back"
+                                  variant="outlined"
+                                  onClick={handleCancelEdit}
+                                >
+                                  Cancel
+                                </Button>
+                              </>
+                            ) : (
+                              <>
+                                <Button
+                                  size="small"
+                                  color="edit"
+                                  variant="contained"
+                                  onClick={() => handleEditClick(user)}
+                                >
+                                  Edit
+                                </Button>
+                                <Button
+                                  size="small"
+                                  color="delete"
+                                  variant="contained"
+                                  onClick={() => handleDelete(user._id)}
+                                >
+                                  Delete
+                                </Button>
+                              </>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   )
 }
