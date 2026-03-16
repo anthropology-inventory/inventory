@@ -372,11 +372,13 @@ body {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .user-email {
   font-weight: 500;
   color: #222;
+  word-break: break-word;
 }
 
 .admin-badge {

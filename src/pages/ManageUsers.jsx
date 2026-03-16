@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Checkbox, TextField, ThemeProvider } from '@mui/material'
+import { Box, Button, Checkbox, ThemeProvider } from '@mui/material'
 import { Bounce, toast } from 'react-toastify'
 import CreateUserForm from './forms/CreateUserForm.jsx'
 import { fetchUsers, deleteUser, updateUser } from '../utils/api'
@@ -10,7 +10,6 @@ export default function ManageUsers() {
   const [loading, setLoading] = useState(true)
   const [editingUserId, setEditingUserId] = useState(null)
   const [editForm, setEditForm] = useState({
-    email: '',
     isAdmin: false
   })
 
@@ -51,7 +50,6 @@ export default function ManageUsers() {
   const handleEditClick = (user) => {
     setEditingUserId(user._id)
     setEditForm({
-      email: user.email,
       isAdmin: user.isAdmin
     })
   }
@@ -59,7 +57,6 @@ export default function ManageUsers() {
   const handleCancelEdit = () => {
     setEditingUserId(null)
     setEditForm({
-      email: '',
       isAdmin: false
     })
   }
@@ -118,20 +115,7 @@ export default function ManageUsers() {
                     return (
                       <tr key={user._id}>
                         <td>
-                          {isEditing ? (
-                            <TextField
-                              size="small"
-                              value={editForm.email}
-                              onChange={(e) =>
-                                setEditForm((prev) => ({
-                                  ...prev,
-                                  email: e.target.value
-                                }))
-                              }
-                            />
-                          ) : (
-                            <span className="user-email">{user.email}</span>
-                          )}
+                          <span className="user-email">{user.email}</span>
                         </td>
 
                         <td>
@@ -139,15 +123,18 @@ export default function ManageUsers() {
                             <Checkbox
                               checked={editForm.isAdmin}
                               onChange={(e) =>
-                                setEditForm((prev) => ({
-                                  ...prev,
+                                setEditForm({
                                   isAdmin: e.target.checked
-                                }))
+                                })
                               }
                             />
                           ) : (
                             <span
-                              className={user.isAdmin ? 'admin-badge admin-yes' : 'admin-badge admin-no'}
+                              className={
+                                user.isAdmin
+                                  ? 'admin-badge admin-yes'
+                                  : 'admin-badge admin-no'
+                              }
                             >
                               {user.isAdmin ? 'Admin' : 'Standard'}
                             </span>

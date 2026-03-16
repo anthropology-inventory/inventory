@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Box, Button, CircularProgress, MenuItem, TextField, ThemeProvider } from '@mui/material'
+import { Box, Button, CircularProgress, ThemeProvider } from '@mui/material'
 import { Bounce, toast } from 'react-toastify'
 import FormFieldset from '../../components/form-components/FormFieldset'
 import FormInput from '../../components/form-components/FormInput'
+import FormSelect from '../../components/form-components/FormSelect'
 import BackButton from '../../components/button-components/BackBtn'
 import { button } from '../../styles/CustomThemes'
 import { validateInput } from '../../utils/signIn_validation'
@@ -10,53 +11,70 @@ import { signup } from '../../utils/api'
 
 export default function CreateUserForm({ onUserCreated }) {
   const [loading, setLoading] = useState(false)
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     isAdmin: false
   })
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
     confirmPassword: ''
   })
+
   const [backendErrors, setBackendErrors] = useState({
     email: '',
     password: ''
   })
+
   const [touched, setTouched] = useState({
     email: false,
     password: false,
-    confirmPassword: false,
-    isAdmin: false
+    confirmPassword: false
   })
+
   const [successMessage, setSuccessMessage] = useState('')
   const [serverMessage, setServerMessage] = useState('')
 
+  const userTypeOptions = [
+    { value: false, label: 'Standard User' },
+    { value: true, label: 'Admin User' }
+  ]
+
   const handleChange = (e) => {
     const { name, value } = e.target
-    const parsedValue = name === 'isAdmin' ? value === 'true' : value
 
     let validation = {}
     if (name === 'email' || name === 'password') {
-      validation = validateInput(name, parsedValue)
+      validation = validateInput(name, value)
     }
 
-    setFormData((prev) => ({ ...prev, [name]: parsedValue }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
     setTouched((prev) => ({ ...prev, [name]: true }))
+
     setErrors((prev) => ({
       ...prev,
       [name]:
         name === 'confirmPassword'
-          ? parsedValue !== formData.password
+          ? value !== formData.password
             ? 'Passwords do not match.'
             : ''
           : validation[name] || ''
     }))
+
     setBackendErrors((prev) => ({ ...prev, [name]: '' }))
     setServerMessage('')
     setSuccessMessage('')
+  }
+
+  const handleSelectChange = (selectedOption, name) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: selectedOption.value
+    }))
   }
 
   const handleSubmit = async (e) => {
@@ -78,9 +96,9 @@ export default function CreateUserForm({ onUserCreated }) {
     setTouched({
       email: true,
       password: true,
-      confirmPassword: true,
-      isAdmin: true
+      confirmPassword: true
     })
+
     setErrors(nextErrors)
 
     if (nextErrors.email || nextErrors.password || nextErrors.confirmPassword) {
@@ -97,21 +115,24 @@ export default function CreateUserForm({ onUserCreated }) {
         confirmPassword: '',
         isAdmin: false
       })
+
       setErrors({
         email: '',
         password: '',
         confirmPassword: ''
       })
+
       setBackendErrors({
         email: '',
         password: ''
       })
+
       setTouched({
         email: false,
         password: false,
-        confirmPassword: false,
-        isAdmin: false
+        confirmPassword: false
       })
+
       setSuccessMessage('User created successfully.')
 
       if (onUserCreated) {
@@ -127,10 +148,12 @@ export default function CreateUserForm({ onUserCreated }) {
       })
     } else {
       const apiErrors = result.data?.errors || {}
+
       const fieldErrors = {
         email: apiErrors.email || '',
         password: apiErrors.password || ''
       }
+
       const hasFieldErrors = fieldErrors.email || fieldErrors.password
       const fallbackMessage = result.data?.message || 'Failed to create user.'
 
@@ -173,12 +196,13 @@ export default function CreateUserForm({ onUserCreated }) {
             hasTooltip={true}
             tooltipTxt={'This user will sign in using this email.'}
           />,
+
           <FormInput
             key="password"
             label="Password"
             inputType="password"
             inputName="password"
-            placeholderTxt="Enter a temporary password..."
+            placeholderTxt="Enter a password..."
             isRequired={true}
             inputValue={formData.password}
             changeFunc={handleChange}
@@ -189,6 +213,7 @@ export default function CreateUserForm({ onUserCreated }) {
             hasTooltip={true}
             tooltipTxt={'Use at least 8 characters with letters, numbers, or symbols.'}
           />,
+
           <FormInput
             key="confirmPassword"
             label="Confirm Password"
@@ -203,19 +228,20 @@ export default function CreateUserForm({ onUserCreated }) {
             hasTooltip={true}
             tooltipTxt={'Both password fields must match.'}
           />,
-          <TextField
-            key="isAdmin"
-            select
-            fullWidth
-            size="small"
+
+          <FormSelect
+            key="userType"
             label="User Type"
-            name="isAdmin"
-            value={String(formData.isAdmin)}
-            onChange={handleChange}
-          >
-            <MenuItem value="false">Standard User</MenuItem>
-            <MenuItem value="true">Admin User</MenuItem>
-          </TextField>,
+            selectName="isAdmin"
+            isRequired={true}
+            selectValue={formData.isAdmin}
+            changeFunc={handleSelectChange}
+            placeholderTxt="Select user type..."
+            selectOptions={userTypeOptions}
+            hasTooltip={true}
+            tooltipTxt="Choose whether this user has admin permissions."
+          />,
+
           <ThemeProvider key="submit" theme={button}>
             <Button
               id="submit-btn"
@@ -228,11 +254,13 @@ export default function CreateUserForm({ onUserCreated }) {
               {loading ? 'Creating user...' : 'Create User'}
             </Button>
           </ThemeProvider>,
+
           serverMessage ? (
             <small key="server-msg" className="validation-err">
               {serverMessage}
             </small>
           ) : null,
+
           successMessage ? (
             <small key="success-msg" className="hint">
               {successMessage}
