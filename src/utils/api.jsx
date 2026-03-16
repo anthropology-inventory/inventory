@@ -276,3 +276,100 @@ export const signup = async (email, password) => {
     return { ok: false, data: { message: 'Network error while creating user.' } }
   }
 }
+
+export const fetchUsers = async () => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${API_URI}/api/users`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (!res.ok) {
+      console.log('Error fetching users')
+      return []
+    }
+
+    return await res.json()
+  } catch (err) {
+    console.log(err)
+    return []
+  }
+}
+
+export const getUserById = async (id) => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${API_URI}/api/users/${id}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (!res.ok) {
+      console.log('Error fetching user with ID:', id)
+      return null
+    }
+
+    return await res.json()
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
+
+export const updateUser = async (id, updates) => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${API_URI}/api/users/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updates),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    let data = {}
+    try {
+      data = await res.json()
+    } catch (error) {
+      data = { message: 'Unexpected response while updating user.' }
+    }
+
+    return { ok: res.ok, data }
+  } catch (err) {
+    console.log(err)
+    return { ok: false, data: { message: 'Network error while updating user.' } }
+  }
+}
+
+export const deleteUser = async (id) => {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${API_URI}/api/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    let data = {}
+    try {
+      data = await res.json()
+    } catch (error) {
+      data = { message: 'Unexpected response while deleting user.' }
+    }
+
+    return { ok: res.ok, data }
+  } catch (err) {
+    console.log(err)
+    return { ok: false, data: { message: 'Network error while deleting user.' } }
+  }
+}

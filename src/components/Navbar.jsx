@@ -21,6 +21,8 @@ import {
  */
 const NavBar = () => {
   const isLoggedIn = !!localStorage.getItem('token')
+  const user = JSON.parse(localStorage.getItem('user'))
+  const isAdmin = user?.isAdmin
 
   return (
     <header id="navbar">
@@ -42,10 +44,14 @@ const NavBar = () => {
               <BsClipboardPlus />
               Manage Inventory
             </NavLink>
-            <NavLink to="/CreateUser" className="nav-link">
-              <BsPersonPlus />
-              Create User
-            </NavLink>
+
+            {isAdmin && (
+              <NavLink to="/ManageUsers" className="nav-link">
+                <BsPersonPlus />
+                Manage Users
+              </NavLink>
+            )}
+
             <NavLink to="/logout" className="nav-link">
               <BsBoxArrowRight />
               Logout
