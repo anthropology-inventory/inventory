@@ -9,6 +9,8 @@ import CreateUserForm from '../pages/forms/CreateUserForm.jsx'
 
 function ProtectedRoutes() {
   const loggedIn = localStorage.getItem('user') && localStorage.getItem('token')
+  const user = JSON.parse(localStorage.getItem('user'))
+  const isAdmin = user?.isAdmin
 
   return (
     <div>
@@ -52,7 +54,7 @@ function ProtectedRoutes() {
             />
             <Route
               path="/CreateUser"
-              element={<CreateUserForm />}
+              element={isAdmin ? <CreateUserForm /> : <Navigate to='/' replace />}
             />
           </Routes>
         : 
