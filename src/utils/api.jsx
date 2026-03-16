@@ -251,12 +251,12 @@ export const login = async (email, password) => {
   }
 }
 
-export const signup = async (email, password) => {
+export const signup = async (email, password, isAdmin = false) => {
   try {
     const token = localStorage.getItem('token')
     const res = await fetch(`${API_URI}/api/signup`, {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, isAdmin }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
