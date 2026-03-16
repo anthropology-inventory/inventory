@@ -44,12 +44,14 @@ const NavBar = () => {
               <BsClipboardPlus />
               Manage Inventory
             </NavLink>
+
             {isAdmin && (
-              <NavLink to="/CreateUser" className="nav-link">
+              <NavLink to="/ManageUsers" className="nav-link">
                 <BsPersonPlus />
-                Create User
+                Manage Users
               </NavLink>
             )}
+
             <NavLink to="/logout" className="nav-link">
               <BsBoxArrowRight />
               Logout
