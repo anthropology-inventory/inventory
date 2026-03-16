@@ -92,11 +92,11 @@ const Dashboard = () => {
                 series={[
                   {
                     data: [
-                      { id: 0, value: totalFossils, label: 'Fossils' },
-                      { id: 1, value: totalPottery, label: 'Pottery' },
-                      { id: 2, value: totalStoneTools, label: 'Stone Tools' },
-                      { id: 3, value: 0, label: 'Weaponry' },
-                      { id: 4, value: 0, label: 'Tools (non-weaponry)' }
+                      { id: 0, value: totalFossils, label: 'Fossils', color: '#008080' },
+                      { id: 1, value: totalPottery, label: 'Pottery', color: '#5c3d1e'},
+                      { id: 2, value: totalStoneTools, label: 'Stone Tools', color: '#c4875a'},
+                      { id: 3, value: 0, label: 'Weaponry', color: '#8b6343' },
+                      { id: 4, value: 0, label: 'Tools (non-weaponry)', color: '#2e1a0e'  }
                     ],
                     highlightScope: { fade: 'global', highlight: 'item' },
                     faded: { innerRadius: 0, additionalRadius: -30, color: 'gray' },
