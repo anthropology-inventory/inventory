@@ -32,7 +32,7 @@ textarea {
   padding: 8px 12px;
   border-radius: var(--radius-sm);
   height: var(--input-height);
-  font-family: 'Inria Sans', sans-serif;
+font-family: 'DM Sans', sans-serif;
   transition: border-color var(--transition);
 }
 
@@ -118,7 +118,7 @@ fieldset {
     font-size: 20px;
     column-gap: 10px;
     color: var(--brown-dark);
-    font-family: 'Cormorant Garamond', Georgia, serif;
+font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     letter-spacing: 0.02em;
   }
@@ -188,7 +188,7 @@ textarea {
   border-radius: var(--radius-sm);
   cursor: pointer;
   justify-self: center;
-  font-family: 'Inria Sans', sans-serif;
+font-family: 'DM Sans', sans-serif;
   font-weight: 700;
   letter-spacing: 0.04em;
   background-color: var(--teal);
@@ -333,8 +333,64 @@ textarea {
 .form-title {
   margin: 0;
   font-size: 26px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+font-family: 'DM Sans', sans-serif;
   color: var(--brown-dark);
   text-align: center;
   letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   FORM PAGE — WIDTH, SIZE & READABILITY PASS
+   ============================================================ */
+
+/* Wider fieldset — less dead side space */
+fieldset {
+  width: 90% !important;
+  max-width: 960px !important;
+}
+
+fieldset section {
+  width: 85% !important;
+}
+
+/* Inputs full height and readable */
+input,
+select {
+  height: var(--input-height) !important;
+  font-size: var(--text-base) !important;
+}
+
+textarea {
+  height: 120px !important;
+  font-size: var(--text-base) !important;
+}
+
+/* Labels bigger and bolder */
+label,
+#category-select label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+/* Optional section — make it obvious it's expandable */
+.optional-section > h3 {
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--brown-mid);
+  opacity: 0.85;
+}
+
+.optional-section > h3:hover {
+  color: var(--teal);
+  opacity: 1;
+}
+
+/* Submit button — full width of fieldset */
+#submit-btn {
+  width: 90% !important;
+  max-width: 960px !important;
+  height: 56px;
+  font-size: var(--text-md) !important;
 }
