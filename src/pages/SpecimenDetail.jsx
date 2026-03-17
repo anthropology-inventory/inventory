@@ -81,7 +81,7 @@ export default function SpecimenDetail() {
           </Grid2>
           <Grid2 size={7}>
             <Card variant="outlined">
-              <Box sx={{ p: 2 }}>
+              <Box sx={{ p: 2 , backgroundColor: 'rgb(237, 237, 237)' }}>
                 {/* Notes */}
                 <Typography variant="h6">Notes</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
@@ -89,28 +89,28 @@ export default function SpecimenDetail() {
                 </Typography>
               </Box>
               <Divider />
-              <Box sx={{ p: 2 }}>
+              <Box sx={{ p: 2 , backgroundColor: 'rgb(237, 237, 237)' }}>
                 <Typography variant="h6">Genus</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                   {specimen.genus}
                 </Typography>
               </Box>
               <Divider />
-              <Box sx={{ p: 2 }}>
+              <Box sx={{ p: 2 , backgroundColor: 'rgb(237, 237, 237)' }}>
                 <Typography variant="h6">Species</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                   {specimen.species}
                 </Typography>
               </Box>
               <Divider />
-              <Box sx={{ p: 2 }}>
+              <Box sx={{ p: 2 , backgroundColor: 'rgb(237, 237, 237)' }}>
                 <Typography variant="h6">Location</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                   {specimen.location}
                 </Typography>
               </Box>
               <Divider />
-              <Box sx={{ p: 2 }}>
+              <Box sx={{ p: 2 , backgroundColor: 'rgb(237, 237, 237)' }}>
                 <Typography variant="h6">Purchased</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                   {specimen.dateOfPurchase}
@@ -121,7 +121,7 @@ export default function SpecimenDetail() {
           <Grid2 size={5}>
             {/* Image & Info Card */}
             <Card variant="outlined" className="sd-img-card">
-              <Box sx={{ p: 3 }} className="sd-card">
+              <Box sx={{ p: 3, backgroundColor: 'rgb(237, 237, 237)' }} className="sd-card">
                 <img
                   src={
                     specimen.images && specimen.images.length > 0

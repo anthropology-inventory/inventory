@@ -27,7 +27,7 @@ const NavBar = () => {
   return (
     <header id="navbar">
       <a id="nav-logo" href="/">
-        GRC Anthropology
+        Anthropology Tracker @ GRC
       </a>
       <div>
         {isLoggedIn ? (

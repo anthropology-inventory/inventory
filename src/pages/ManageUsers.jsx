@@ -4,6 +4,7 @@ import { Bounce, toast } from 'react-toastify'
 import CreateUserForm from './forms/CreateUserForm.jsx'
 import { fetchUsers, deleteUser, updateUser } from '../utils/api'
 import { button } from '../styles/CustomThemes'
+import BackButton from '../components/button-components/BackBtn.jsx'
 
 export default function ManageUsers() {
   const [users, setUsers] = useState([])
@@ -88,7 +89,7 @@ export default function ManageUsers() {
   return (
     <ThemeProvider theme={button}>
       <Box id="manage-users-page">
-
+        <BackButton />
         <Box className="manage-users-section">
           <h2>Current Users</h2>
 
@@ -172,6 +173,13 @@ export default function ManageUsers() {
                                   color="edit"
                                   variant="contained"
                                   onClick={() => handleEditClick(user)}
+                                  sx={{
+                                    borderRadius: '4px',
+                                    textTransform: 'none',
+                                    fontFamily: 'DM Sans, sans-serif',
+                                    fontWeight: 600,
+                                    letterSpacing: '0.02em'
+                                  }}
                                 >
                                   Edit
                                 </Button>
@@ -180,6 +188,13 @@ export default function ManageUsers() {
                                   color="delete"
                                   variant="contained"
                                   onClick={() => handleDelete(user._id)}
+                                  sx={{
+                                    borderRadius: '4px',
+                                    textTransform: 'none',
+                                    fontFamily: 'DM Sans, sans-serif',
+                                    fontWeight: 600,
+                                    letterSpacing: '0.02em'
+                                  }}
                                 >
                                   Delete
                                 </Button>
