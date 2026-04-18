@@ -89,6 +89,7 @@ export default function ManageUsers() {
   return (
     <ThemeProvider theme={button}>
       <Box id="manage-users-page">
+        <div>
         <BackButton />
         <Box className="manage-users-section">
           <h2>Current Users</h2>
@@ -210,6 +211,7 @@ export default function ManageUsers() {
             </div>
           )}
         </Box>
+        </div>
         <CreateUserForm onUserCreated={loadUsers} />
 
       </Box>

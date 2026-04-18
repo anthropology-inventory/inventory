@@ -5,7 +5,8 @@ import {
   BsClipboardPlus,
   BsPersonLock,
   BsPersonPlus,
-  BsBoxArrowRight
+  BsBoxArrowRight,
+  BsGlobeAsiaAustralia 
 } from 'react-icons/bs'
 
 /**
@@ -26,9 +27,12 @@ const NavBar = () => {
 
   return (
     <header id="navbar">
+      <div>
+      <BsGlobeAsiaAustralia />
       <a id="nav-logo" href="/">
         Anthropology Tracker @ GRC
       </a>
+      </div>
       <div>
         {isLoggedIn ? (
           <>

@@ -20,7 +20,7 @@ function DashArtifactCard({ imgSrc, description, name, id, dateUpdated }) {
           <img id="artifact-img" src={imgSrc} alt={description} />
           <div>
             <p>{name}</p>
-            <small>Artifact added: {formatDate(dateUpdated)}</small>
+            <small style={{fontSize: "14px"}}>Artifact added: {formatDate(dateUpdated)}</small>
           </div>
         </div>
       </Link>

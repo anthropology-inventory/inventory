@@ -38,6 +38,7 @@ const Dashboard = () => {
 
   return (
     <>
+    <div class="dashboard-container">
       <section id="dashboard-top">
         <SearchBar />
         <ViewCollectionBtn />
@@ -138,6 +139,7 @@ const Dashboard = () => {
           }
         />
       </section>
+      </div>
     </>
   )
 }

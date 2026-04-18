@@ -29,7 +29,8 @@ export default function ViewCollectionBtn() {
                     textTransform: 'none',
                     fontFamily: 'DM Sans, sans-serif',
                     fontWeight: 500,
-                    letterSpacing: '0.02em'
+                    letterSpacing: '0.02em',
+                    fontSize: '17px'
                 }}
             >
                 View Collection

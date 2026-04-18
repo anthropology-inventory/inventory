@@ -29,7 +29,8 @@ export default function AddArtifactBtn() {
                     textTransform: 'none',
                     fontFamily: 'DM Sans, sans-serif',
                     fontWeight: 500,
-                    letterSpacing: '0.02em'
+                    letterSpacing: '0.02em',
+                    fontSize: 17
                 }}
             >
             Add Artifact
