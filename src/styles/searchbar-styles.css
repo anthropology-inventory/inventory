@@ -1,83 +1,86 @@
+/* #SEARCHBAR-STYLES */
+
 /* ============================================================
    SEARCHBAR
    ============================================================ */
 #searchbar-form {
   margin: 0;
   width: 100%;
+}
 
-  #searchbar {
-    position: relative;
-    display: flex;
-    width: 100%;
-    margin-left: 90px;
+#searchbar {
+  position: relative;
+  display: flex;
+  width: 100%;
+  /* margin-left: 90px; */
+  /* padding: 0 20px; */
+}
 
-    input {
-      border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-      border: 1px solid var(--border-warm);
-      background-color: var(--cream);
-      color: var(--text-dark);
-      width: 78%;
-      transition: border-color var(--transition);
-    }
+#searchbar input {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  border: 1px solid var(--border-warm);
+  background-color: var(--cream);
+  color: var(--text-dark);
+  width: 78%;
+  transition: border-color var(--transition);
+}
 
-    input:hover {
-      border-color: var(--teal);
-      box-shadow: none;
-    }
+#searchbar input:hover {
+  border-color: var(--teal);
+  box-shadow: none;
+}
 
-    input:focus-visible {
-      outline: none;
-      border-color: var(--teal);
-      box-shadow: none;
-    }
+#searchbar input:focus-visible {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: none;
+}
 
-    button {
-      padding: 0 1rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      border: 1px solid var(--border-warm);
-      border-left: none;
-      background-color: var(--sand);
-      color: var(--brown-mid);
-      cursor: pointer;
-      transition: background-color var(--transition), color var(--transition), border-color var(--transition);
-    }
+#searchbar button {
+  padding: 0 1rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border: 1px solid var(--border-warm);
+  border-left: none;
+  background-color: var(--sand);
+  color: var(--brown-mid);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+  
+}
 
-    button:hover {
-      background-color: var(--teal);
-      color: white;
-      border-color: var(--teal);
-    }
+#searchbar button:hover {
+  background-color: var(--teal);
+  color: white;
+  border-color: var(--teal);
+}
 
-    .search-dropdown {
-      position: absolute;
-      top: 100%;
-      margin: 0;
-      padding: 0;
-      width: 80%;
-      background-color: var(--cream);
-      box-shadow: var(--shadow-lg);
-      border-bottom-left-radius: var(--radius-md);
-      border-bottom-right-radius: var(--radius-md);
-      border: 1px solid var(--border-warm);
-      border-top: none;
-      overflow: hidden;
-      z-index: 100;
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  background-color: var(--cream);
+  box-shadow: var(--shadow-lg);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  border: 1px solid var(--border-warm);
+  border-top: none;
+  overflow: hidden;
+  z-index: 100;
+}
 
-      li {
-        padding: 0.85rem 1rem;
-        list-style: none;
-        border: 2px solid transparent;
-        cursor: pointer;
-        color: var(--text-mid);
-        font-size: 14px;
-        transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+.search-dropdown li {
+  padding: 0.85rem 1rem;
+  list-style: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  color: var(--text-mid);
+  font-size: var(--text-sm);
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+}
 
-        &:hover {
-          background-color: var(--sand-light);
-          border-color: var(--teal);
-          color: var(--brown-dark);
-        }
-      }
-    }
-  }
+.search-dropdown li:hover {
+  background-color: var(--sand-light);
+  border-color: var(--teal);
+  color: var(--brown-dark);
 }

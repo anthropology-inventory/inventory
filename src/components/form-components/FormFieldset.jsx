@@ -10,7 +10,7 @@ function FormFieldset({ fieldsetID, title, fields, isOptional }) {
   return (
     <fieldset id={fieldsetID} className={isOptional ? 'optional-section' : null}>
       <h3>
-        {title}
+        {isOptional ? "" : title}
         {isOptional ? (
           <Tooltip title="View fields" placement="right-end" arrow>
             <IconButton
@@ -19,6 +19,7 @@ function FormFieldset({ fieldsetID, title, fields, isOptional }) {
                 fieldVisibility == '' ? setFieldVisibility('visible') : setFieldVisibility('')
               }
             >
+              {title}
               {fieldVisibility == '' ? <BsArrowDownSquareFill /> : <BsArrowUpSquareFill />}
             </IconButton>
           </Tooltip>
