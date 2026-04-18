@@ -1,253 +1,396 @@
+/* ============================================================
+   FORMS
+   ============================================================ */
 #category-select {
-    justify-self: center;
+  justify-self: center;
 }
 
-form, 
+form,
 #update-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    row-gap: 3rem;
-    max-width: 1200px;
-    min-width: fit-content;
-    margin: 0 auto 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 3rem;
+  max-width: 1200px;
+  min-width: fit-content;
+  margin: 0 auto 40px auto;
 }
 
 #back-btn {
-    width: 75%;
-    max-width: 800px;
+  width: 75%;
+  max-width: 800px;
 }
 
 input,
 select,
 textarea {
-    border: solid 1px transparent; 
-    font-size: 14px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    height: 32px;
+  border: 1px solid var(--border-warm);
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-size: var(--text-base);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  height: var(--input-height);
+font-family: 'DM Sans', sans-serif;
+  transition: border-color var(--transition);
+}
+
+textarea {
+  height: 120px;
 }
 
 input:hover,
 textarea:hover {
-    box-shadow: 0px 0px 5px 1px #759ffc;
-    border: solid 1px #759ffc;
+  border-color: var(--teal);
+  box-shadow: none;
 }
 
 input:focus-visible,
 textarea:focus-visible {
-    outline: none;
-    border: solid 1px #759ffc;
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: none;
 }
 
 label,
 #category-select label {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
+  color: var(--text-mid);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
 }
 
 #input-head {
-    display: flex;
-    column-gap: 4px;
-    align-items: center;
-}
-
-#tooltip-btn:hover {
-    background-color: transparent;
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
 }
 
 #tooltip-btn {
-    padding: 0;
-    padding-left: 4px;
-    margin-bottom: 6px;
+  padding: 0;
+  padding-left: 4px;
+  margin-bottom: 6px;
+  background: transparent;
+}
+
+#tooltip-btn:hover {
+  background-color: transparent;
 }
 
 #tooltip-icon {
-    width: 16px;
-    fill: #333;
-    align-self: center;
+  width: 16px;
+  fill: var(--brown-warm);
+  align-self: center;
+  transition: fill var(--transition);
 }
 
 #tooltip-icon:hover {
-    fill: #759ffc;
+  fill: var(--teal);
 }
 
+/* ============================================================
+   FIELDSET
+   ============================================================ */
 fieldset {
-    display: grid;
-    row-gap: 30px;
-    background-color: #e3e3e3;
-    padding: 40px 0;
-    border-radius: 10px;
-    border: none;
+  display: grid;
+  row-gap: 30px;
+  background-color: var(--bg-card);
+  padding: 40px 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  width: 75%;
+  max-width: 800px;
+  min-width: 400px;
+  box-shadow: var(--shadow-card);
+
+  section {
+    display: flex;
+    flex-direction: column;
     width: 75%;
-    max-width: 800px;
-    min-width: 400px;
-    box-shadow: 0px 5px 4px 0px #cccccc;
+    margin: 0 auto;
+  }
 
-    section {
-        display: flex;
-        flex-direction: column;
-        width: 75%;
-        margin: 0 auto;
-    }
-
-    h3 {
-        display: flex;
-        justify-content: center;
-        font-size: 20px;
-        column-gap: 10px;
-    }
+  h3 {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    column-gap: 10px;
+    color: var(--brown-dark);
+font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
 }
 
 .fieldset-fields {
-    display: grid;
-    row-gap: 30px;
+  display: grid;
+  row-gap: 30px;
 }
 
 textarea {
-    height: 100px;
-    resize: none;
-    font-family: "Inria Sans", sans-serif;
+  height: 100px;
+  resize: none;
 }
 
+/* ============================================================
+   FILE UPLOAD
+   ============================================================ */
 .file-label {
-    max-height: 160px;
-    background-color: white;
-    border-radius: 10px;
-    border: solid transparent 1px;
+  max-height: 160px;
+  background-color: var(--cream);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--clay);
+  transition: box-shadow var(--transition), border-color var(--transition);
 }
 
 .file-label:hover {
-    cursor: pointer;
-    box-shadow: 0px 0px 5px 1px #759ffc;
-    border: solid #759ffc 1px;
+  cursor: pointer;
+  box-shadow: var(--shadow-hover);
+  border-color: var(--teal);
 }
 
 .file-placeholder {
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    font-size: 3rem;
-    p {
-        font-size: 1rem;
-    }
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--clay);
+
+  p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+  }
 }
 
 .file-preview {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
 }
 
-#submit-btn, #login-btn {
-    width: 75%;
-    min-width: 400px;
-    max-width: 800px;
-    height: 60px;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    justify-self: center;
+/* ============================================================
+   SUBMIT / LOGIN BUTTONS
+   ============================================================ */
+#submit-btn,
+#login-btn {
+  width: 75%;
+  min-width: 400px;
+  max-width: 800px;
+  height: 56px;
+  color: white;
+  font-size: var(--text-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  justify-self: center;
+font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background-color: var(--teal);
+  box-shadow: none;
+  transition: filter var(--transition);
+}
+
+#submit-btn:hover,
+#login-btn:hover {
+  filter: brightness(1.12);
 }
 
 #login-btn {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
+/* ============================================================
+   HINTS & VALIDATION
+   ============================================================ */
 .hint {
-    color: #4b4b4b;
-    margin-top: 6px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-size: 13px;
 }
 
 .validation-err {
-    color: rgb(202, 0, 0);
-    margin-top: 6px;
+  color: var(--error);
+  margin-top: 6px;
+  font-size: 13px;
 }
 
 .invalid {
-    border-color: red !important;
-    background-color: #ff000013 !important;
+  border-color: var(--error) !important;
+  background-color: var(--error-bg) !important;
 }
 
 .valid {
-    border-color: green !important;
-    background-color: #00800013 !important;
+  border-color: var(--teal) !important;
+  background-color: var(--success-bg) !important;
 }
 
+/* ============================================================
+   LOCATION / RADIO
+   ============================================================ */
 #locations {
-    width: 75%;
-    margin: 0 auto;
+  width: 75%;
+  margin: 0 auto;
 
-    #location-label {
-        margin-right: 4px;
-    }
+  #location-label {
+    margin-right: 4px;
+  }
 }
 
 #location-radio-btns {
-    background-color: white;
-    border: solid 1px transparent; 
-    font-size: 14px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    .radio-btn {
-        display: flex;
-        align-content: center;
-        column-gap: 6px;
+  background-color: var(--cream);
+  border: 1px solid var(--border-warm);
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
 
-        input {
-            margin: 0;
-            width: 16px;
-        }
+  .radio-btn {
+    display: flex;
+    align-content: center;
+    column-gap: 6px;
 
-        input:hover {
-            cursor: pointer;
-            box-shadow: none;
-        }
-
-        label {
-            align-self: center;
-            margin: 0;
-        }
+    input {
+      margin: 0;
+      width: 16px;
     }
+
+    input:hover {
+      cursor: pointer;
+      box-shadow: none;
+    }
+
+    label {
+      align-self: center;
+      margin: 0;
+    }
+  }
 }
 
+/* ============================================================
+   DROPDOWN BUTTON
+   ============================================================ */
 #dropdown-btn {
-    padding: 0;
-    position: relative;
-    right: 0;
-    svg {
-        width: 20px;
-        height: 20px;
-        fill: #4371d6;
-    }
+  padding: 0;
+  position: relative;
+  right: 0;
+  background: transparent;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--clay);
+  }
 }
 
 #dropdown-btn:hover {
-    background-color: transparent;
-    svg {
-        fill: #759ffc;
-    }
+  background-color: transparent;
+
+  svg {
+    fill: var(--teal);
+  }
 }
 
+/* ============================================================
+   OPTIONAL SECTION ANIMATION
+   ============================================================ */
 @keyframes showFields {
-    0% {height: 0%;}
-    25% {height: 25%;}
-    50% {height: 50%;}
-    75% {height: 75%;}
-    100% {height: 100%;}
+  0%   { height: 0%;   opacity: 0; }
+  25%  { height: 25%;  opacity: 0.4; }
+  50%  { height: 50%;  opacity: 0.7; }
+  75%  { height: 75%;  opacity: 0.9; }
+  100% { height: 100%; opacity: 1; }
 }
 
 .optional-section {
-    .fieldset-fields {
-        display: none;
-    }
+  .fieldset-fields {
+    display: none;
+  }
 
-    .visible {
-        display: grid;
-        animation: ease-in 4s showFields;
-    }
+  .visible {
+    display: grid;
+    animation: ease-in 0.4s showFields;
+  }
 }
 
+/* ============================================================
+   FORM TITLE & SPACING
+   ============================================================ */
+#fossil-form {
+  row-gap: 1.2rem;
+  padding-top: 10px;
+}
+
+#fossil-form #back-btn {
+  align-self: flex-start;
+  margin-bottom: 0;
+}
+
+.form-title {
+  margin: 0;
+  font-size: 26px;
+font-family: 'DM Sans', sans-serif;
+  color: var(--brown-dark);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   FORM PAGE — WIDTH, SIZE & READABILITY PASS
+   ============================================================ */
+
+/* Wider fieldset — less dead side space */
+fieldset {
+  width: 90% !important;
+  max-width: 960px !important;
+}
+
+fieldset section {
+  width: 85% !important;
+}
+
+/* Inputs full height and readable */
+input,
+select {
+  height: var(--input-height) !important;
+  font-size: var(--text-base) !important;
+}
+
+textarea {
+  height: 120px !important;
+  font-size: var(--text-base) !important;
+}
+
+/* Labels bigger and bolder */
+label,
+#category-select label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+/* Optional section — make it obvious it's expandable */
+.optional-section > h3 {
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--brown-mid);
+  opacity: 0.85;
+}
+
+.optional-section > h3:hover {
+  color: var(--teal);
+  opacity: 1;
+}
+
+/* Submit button — full width of fieldset */
+#submit-btn {
+  width: 90% !important;
+  max-width: 960px !important;
+  height: 56px;
+  font-size: var(--text-md) !important;
+}

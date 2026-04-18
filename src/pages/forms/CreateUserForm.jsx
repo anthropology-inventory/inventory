@@ -174,9 +174,9 @@ export default function CreateUserForm({ onUserCreated }) {
 
   return (
     <form onSubmit={handleSubmit} id="create-user-form" autoComplete="on">
-      <Box id="back-btn">
+      {/* <Box id="back-btn">
         <BackButton />
-      </Box>
+      </Box> */}
 
       <FormFieldset
         fieldsetID="create-user-fields"

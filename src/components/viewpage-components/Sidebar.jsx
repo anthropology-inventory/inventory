@@ -57,7 +57,7 @@ const Sidebar = ({ specimens, setSearchTerm }) => {
     <div className="sidebar">
       <div className="add-category">
         {!showCreateCategory ? (
-          <button className="btn-add-category" onClick={() => setCreateCategory(true)}>
+          <button className="btn-add-category" onClick={() => setCreateCategory(true)} >
             + Add Category
           </button>
         ) : (

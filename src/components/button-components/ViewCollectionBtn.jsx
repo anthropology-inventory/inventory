@@ -22,12 +22,17 @@ export default function ViewCollectionBtn() {
                 color="view"
                 component={Link}
                 to='/SpecimensExplorer'
-                startIcon={<BsEye/>}
+                startIcon={<BsEye />}
                 sx={{
-                    minWidth: 'fit-content'
+                    minWidth: 'fit-content',
+                    borderRadius: '4px',
+                    textTransform: 'none',
+                    fontFamily: 'DM Sans, sans-serif',
+                    fontWeight: 500,
+                    letterSpacing: '0.02em'
                 }}
             >
-            View Collection
+                View Collection
             </Button>
         </ThemeProvider>
     )

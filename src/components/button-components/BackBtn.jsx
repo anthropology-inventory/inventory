@@ -1,6 +1,6 @@
 import { button } from '../../styles/CustomThemes'
 import { Button, ThemeProvider } from '@mui/material'
-import { useNavigate, Link} from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { BsArrowLeftCircle } from "react-icons/bs"
 
 /**
@@ -18,18 +18,25 @@ export default function BackButton() {
     const navigate = useNavigate()
     const handleGoBack = () => {
         navigate(-1)
-        setTimeout(() => window.location.reload(), .01)
+        setTimeout(() => window.location.reload(), 300)
     }
     return (
         <ThemeProvider theme={button}>
             <Button
                 variant="contained"
                 color="back"
-                component={Link}
+                // component={Link}
                 onClick={handleGoBack}
-                startIcon={<BsArrowLeftCircle/>}
+                startIcon={<BsArrowLeftCircle />}
+                sx={{
+                    borderRadius: '4px',
+                    textTransform: 'none',
+                    fontFamily: 'DM Sans, sans-serif',
+                    fontWeight: 500,
+                    letterSpacing: '0.02em'
+                }}
             >
-            Go Back
+                Go Back
             </Button>
         </ThemeProvider>
     )
