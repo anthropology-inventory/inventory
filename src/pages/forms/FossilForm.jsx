@@ -172,9 +172,9 @@ const FossilForm = ({mode, artifactId }) => {
 
   return (
     <form onSubmit={handleSubmit} id="fossil-form" autoComplete="on">
-      <Box id='back-btn'>
+      {/* <Box id='back-btn'>
         <BackButton />
-      </Box>
+      </Box> */}
       <ToastContainer />
       <h2 className="form-title">{mode === 'add' ? 'Add Fossil' : 'Update Artifact'}</h2>
       <FormFieldset

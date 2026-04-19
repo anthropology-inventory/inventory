@@ -173,6 +173,13 @@ textarea {
   object-fit: contain;
 }
 
+/* Login Page */
+.login-title {
+  font-size: 26pt;
+  margin: 0;
+  font-weight: 100;
+}
+
 /* ============================================================
    SUBMIT / LOGIN BUTTONS
    ============================================================ */

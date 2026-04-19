@@ -9,7 +9,7 @@ function FormFieldset({ fieldsetID, title, fields, isOptional }) {
   const [fieldVisibility, setFieldVisibility] = useState('')
   return (
     <fieldset id={fieldsetID} className={isOptional ? 'optional-section' : null}>
-      <h3>
+      <h3 className='login-title'>
         {title}
         {isOptional ? (
           <Tooltip title="View fields" placement="right-end" arrow>

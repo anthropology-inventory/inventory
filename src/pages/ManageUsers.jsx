@@ -89,7 +89,7 @@ export default function ManageUsers() {
   return (
     <ThemeProvider theme={button}>
       <Box id="manage-users-page">
-        <BackButton />
+        {/* <BackButton /> */}
         <Box className="manage-users-section">
           <h2>Current Users</h2>
 
