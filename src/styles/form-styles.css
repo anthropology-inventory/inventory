@@ -68,6 +68,15 @@ label,
   align-items: center;
 }
 
+#input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+#input-wrapper input {
+  flex: 1;
+}
+
 #tooltip-btn {
   padding: 0;
   padding-left: 4px;

@@ -5,10 +5,12 @@ import { validateInput } from '../../utils/signIn_validation'
 import { login } from '../../utils/api'
 import { useNavigate } from 'react-router-dom'
 import { toast, Bounce } from 'react-toastify'
-import { Button, CircularProgress, ThemeProvider } from '@mui/material'
+import { Button, CircularProgress, ThemeProvider, IconButton } from '@mui/material'
 import { button } from '../../styles/CustomThemes'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [formData, setFormData] = useState({
@@ -47,12 +49,12 @@ export default function LoginForm() {
       if (!res.ok) {
         console.log(data.errors || data.error)
         toast.error(`Login failed...`, {
-        position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        theme: 'colored',
-        transition: Bounce
-      })
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          theme: 'colored',
+          transition: Bounce
+        })
         setLoading(false)
         return
       }
@@ -103,23 +105,28 @@ export default function LoginForm() {
           <FormInput
             key="password"
             label="Password"
-            inputType="password"
+            inputType={showPassword ? 'text' : 'password'}
             inputName="password"
             placeholderTxt="Please enter your password..."
             isRequired={true}
             changeFunc={handleChange}
             inputClass={formData.password === '' ? '' : errors.password ? 'invalid' : 'valid'}
             validationErr={errors.password}
+            endIcon={
+              <IconButton onClick={() => setShowPassword(!showPassword)} size="small">
+                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </IconButton>
+            }
           ></FormInput>,
           <ThemeProvider theme={button}>
-            <Button 
-              key="submit" 
+            <Button
+              key="submit"
               id="login-btn"
               variant='contained'
               type="submit"
-              color={loading ? 'loading' : 'submit'} 
+              color={loading ? 'loading' : 'submit'}
               startIcon={loading && <CircularProgress size={20} />}
-              >
+            >
               {loading ? 'Logging in...' : 'Login'}
             </Button>
           </ThemeProvider>

@@ -16,7 +16,8 @@ function FormInput({
   hint,
   hasTooltip,
   tooltipTxt,
-  validationErr
+  validationErr,
+  endIcon
 }) {
   return (
     <section>
@@ -30,17 +31,19 @@ function FormInput({
           </Tooltip>
         )}
       </div>
-      <input
-        type={inputType}
-        id={inputId}
-        name={inputName}
-        placeholder={placeholderTxt}
-        required={isRequired}
-        value={inputValue}
-        onChange={changeFunc}
-        className={inputClass}
-      />
-
+      <div id="input-wrapper">
+        <input
+          type={inputType}
+          id={inputId}
+          name={inputName}
+          placeholder={placeholderTxt}
+          required={isRequired}
+          value={inputValue}
+          onChange={changeFunc}
+          className={inputClass}
+        />
+        {endIcon && endIcon}
+      </div>
       {hint && <small className="hint">{hint}</small>}
       {validationErr && <small className="validation-err">{validationErr}</small>}
     </section>
@@ -60,7 +63,8 @@ FormInput.propTypes = {
   hint: PropTypes.string,
   hasTooltip: PropTypes.bool,
   tooltipTxt: PropTypes.string,
-  validationErr: PropTypes.string
+  validationErr: PropTypes.string,
+  endIcon: PropTypes.node
 }
 
 export default FormInput
