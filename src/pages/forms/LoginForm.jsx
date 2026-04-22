@@ -113,7 +113,7 @@ export default function LoginForm() {
             inputClass={formData.password === '' ? '' : errors.password ? 'invalid' : 'valid'}
             validationErr={errors.password}
             endIcon={
-              <IconButton onClick={() => setShowPassword(!showPassword)} size="small">
+              <IconButton className="eye-btn" onClick={() => setShowPassword(!showPassword)} size="small">
                 {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </IconButton>
             }

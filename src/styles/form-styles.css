@@ -69,12 +69,27 @@ label,
 }
 
 #input-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
 }
 
 #input-wrapper input {
-  flex: 1;
+  width: 100%;
+  padding-right: 40px; /* makes room for the icon */
+}
+
+#input-wrapper .eye-btn {
+  position: absolute;
+  right: 6px;
+  padding: 0;
+  background: transparent;
+  color: var(--brown-warm);
+}
+
+#input-wrapper .eye-btn:hover {
+  background: transparent;
+  color: var(--teal);
 }
 
 #tooltip-btn {
