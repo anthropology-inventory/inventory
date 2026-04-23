@@ -52,9 +52,56 @@ export const locationOptions = [
 ]
 
 /**
+ * An array of cabinet options for artifact storage.
+ * Each cabinet can contain shelves. Use in conjunction with shelfOptions.
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value representing the cabinet ID.
+ * @property {string} label - The display name shown to users in the UI.
+ *
+ * @example
+ * <Select options={cabinetOptions} />
+ */
+export const cabinetOptions = [
+  { value: 'Cabinet 1', label: 'Cabinet 1' },
+  { value: 'Cabinet 2', label: 'Cabinet 2' },
+  { value: 'Cabinet 3', label: 'Cabinet 3' },
+  { value: 'Cabinet 4', label: 'Cabinet 4' },
+  { value: 'Cabinet 5', label: 'Cabinet 5' },
+  { value: 'Cabinet 6', label: 'Cabinet 6' },
+  { value: 'Cabinet 7', label: 'Cabinet 7' },
+  { value: 'Cabinet 8', label: 'Cabinet 8' },
+  { value: 'Cabinet 9', label: 'Cabinet 9' },
+  { value: 'Cabinet 10', label: 'Cabinet 10' }
+]
+
+/**
+ * An array of shelf options for artifacts stored in cabinets.
+ * Used when location type is "Cabinet & Shelf".
+ *
+ * @constant
+ * @type {Array<Object>}
+ * @property {string} value - The internal value representing the shelf ID.
+ * @property {string} label - The display name shown to users in the UI.
+ *
+ * @example
+ * <Select options={shelfOptions} />
+ */
+export const shelfOptions = [
+  { value: 'Shelf 1', label: 'Shelf 1' },
+  { value: 'Shelf 2', label: 'Shelf 2' },
+  { value: 'Shelf 3', label: 'Shelf 3' },
+  { value: 'Shelf 4', label: 'Shelf 4' },
+  { value: 'Shelf 5', label: 'Shelf 5' },
+  { value: 'Shelf 6', label: 'Shelf 6' }
+]
+
+/**
  * A grouped array of selectable storage location options for cabinets and rows.
  * Each group has a label (e.g., "Cabinets" or "Row") and an array of corresponding options.
  * This structure is commonly used in UI components like grouped dropdowns or selects.
+ * DEPRECATED: Use cabinetOptions, shelfOptions, and drawerOptions instead.
  *
  * @constant
  * @type {Array<Object>}

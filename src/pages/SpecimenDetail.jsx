@@ -19,6 +19,7 @@ import {
 } from '@mui/material'
 import { fetchSpecimenById } from '../utils/api'
 import { button } from '../styles/CustomThemes'
+import { formatLocation } from '../utils/locationFormatter'
 import '../styles/index.css'
 import { BsArrowLeftCircle, BsPencilSquare } from "react-icons/bs";
 import BackButton from '../components/button-components/BackBtn'
@@ -106,7 +107,7 @@ export default function SpecimenDetail() {
               <Box sx={{ p: 2 , backgroundColor: 'rgb(237, 237, 237)' }}>
                 <Typography variant="h6">Location</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                  {specimen.location}
+                  {formatLocation(specimen.location)}
                 </Typography>
               </Box>
               <Divider />
@@ -163,7 +164,7 @@ export default function SpecimenDetail() {
               <TableCell>{specimen.anthropologist || 'N/A'}</TableCell>
               <TableCell>{specimen.countryFound || 'N/A'}</TableCell>
               <TableCell>{specimen.regionFound || 'N/A'}</TableCell>
-              <TableCell>{specimen.location || 'N/A'}</TableCell>
+              <TableCell>{formatLocation(specimen.location)}</TableCell>
               <TableCell>{specimen.manufacturer || 'N/A'}</TableCell>
             </TableRow>
 

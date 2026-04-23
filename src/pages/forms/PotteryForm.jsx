@@ -46,11 +46,20 @@ const PotteryForm = () => {
   }
 
   const handleSelectChange = (selectedOption, name) => {
-    const input = validateInput(name, selectedOption.value)
-    setErrors(input)
+    // Handle location field which now passes structured objects
+    if (name === 'location') {
+      if (selectedOption && selectedOption.value) {
+        setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
+      } else {
+        setFormData((prev) => ({ ...prev, [name]: '' }))
+      }
+    } else {
+      const input = validateInput(name, selectedOption.value)
+      setErrors(input)
 
-    if (Object.keys(input).length === 0) {
-      setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
+      if (Object.keys(input).length === 0) {
+        setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
+      }
     }
   }
 
