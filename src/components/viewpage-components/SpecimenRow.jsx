@@ -1,4 +1,6 @@
 // SpecimenCard is a component that shows in list view
+import { formatLocation } from '../../utils/locationFormatter'
+
 const SpecimenRow = ({ specimen, tableColumns }) => {
   return (
     <tr
@@ -17,7 +19,9 @@ const SpecimenRow = ({ specimen, tableColumns }) => {
         />
       </td>
       {tableColumns.map((key, i) => (
-        <td key={i}>{specimen[key]}</td>
+        <td key={i}>
+          {key === 'location' ? formatLocation(specimen[key]) : specimen[key]}
+        </td>
       ))}
     </tr>
   )
