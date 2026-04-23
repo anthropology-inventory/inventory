@@ -31,8 +31,7 @@ const StoneToolForm = () => {
     purchaser: '',
     regionFound: '',
     countryFound: '',
-    cabinet: 'C1',
-    row: 'R1',
+    location: '',
     description: '',
     notes: '',
     image: null
@@ -101,9 +100,11 @@ const StoneToolForm = () => {
         selectChangeFunc={handleSelectChange}
       />
       <DescriptionNotes
+        locationData={{ value: formData.location, errors: errors.location }}
         descriptionData={formData.description}
         notesData={formData.notes}
         changeFunc={handleChange}
+        selectChangeFunc={handleSelectChange}
       />
       <PurchaseInfo
         dateData={formData.dateOfPurchase}

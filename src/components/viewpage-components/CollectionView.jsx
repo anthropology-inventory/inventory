@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SpecimenCard from './SpecimenCard'
 import SpecimenRow from './SpecimenRow'
+import { formatLocation } from '../../utils/locationFormatter'
 
 const CollectionView = ({ specimens, viewType, onDelete }) => {
   // Sorting settings
@@ -17,8 +18,8 @@ const CollectionView = ({ specimens, viewType, onDelete }) => {
     // This is unique as we don't need to sort the image
     if (!sortConfig.key || sortConfig.key === 'image') return 0
 
-    let valA = a[sortConfig.key] || ''
-    let valB = b[sortConfig.key] || ''
+    let valA = sortConfig.key === 'location' ? formatLocation(a.location) : a[sortConfig.key] || ''
+    let valB = sortConfig.key === 'location' ? formatLocation(b.location) : b[sortConfig.key] || ''
 
     if (!isNaN(valA) && !isNaN(valB)) {
       valA = Number(valA)

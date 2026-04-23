@@ -8,6 +8,7 @@ import AddArtifactBtn from '../components/button-components/AddArtifactBtn.jsx'
 // Components
 import Sidebar from '../components/viewpage-components/Sidebar'
 import CollectionView from '../components/viewpage-components/CollectionView.jsx'
+import { formatLocation } from '../utils/locationFormatter'
 
 // CSS
 import '../styles/index.css'
@@ -47,9 +48,12 @@ export default function View() {
   // Filters each specimens if it includes the search bar value,
   // Should work with any column
   const filteredSpecimens = specimens.filter((item) =>
-    Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    Object.entries(item).some(([key, value]) => {
+      const normalizedValue =
+        key === 'location' ? formatLocation(value) : value === null || value === undefined ? '' : String(value)
+
+      return normalizedValue.toLowerCase().includes(searchTerm.toLowerCase())
+    })
   )
 
   // Toggles grid or list view

@@ -115,13 +115,10 @@ const FossilForm = ({mode, artifactId }) => {
     // Handle location field which now passes structured objects
     if (name === 'location') {
       if (selectedOption && selectedOption.value) {
-        // New structured location format (object with cabinet, shelf, or drawer)
         setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
       } else {
-        // Reset location if needed
         setFormData((prev) => ({ ...prev, [name]: '' }))
       }
-      console.log('Location updated:', selectedOption.value)
     } else if (Array.isArray(selectedOption)) {
       // Handle multi-select for other fields (not used for location anymore)
       const cabinet = selectedOption.find((opt) => opt.value.startsWith('Cabinet'))
@@ -134,10 +131,8 @@ const FossilForm = ({mode, artifactId }) => {
       const combinedLocation = [cabinet?.value, row?.value].filter(Boolean).join(', ')
 
       setFormData((prev) => ({ ...prev, [name]: combinedLocation }))
-      console.log(formData.location)
     } else {
       setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
-      console.log(formData.location)
     }
   }
 
