@@ -130,10 +130,11 @@ font-family: 'DM Sans', sans-serif;
   background: var(--bg-navbar);
   display: flex;
   justify-content: space-between;
-  padding: 0 28px;
-  height: 48px;
+  padding: 8px 28px;
+  min-height: 64px;
   min-width: 900px;
   align-items: center;
+  gap: 24px;
   border-bottom: 1px solid var(--border-warm);
   box-shadow: 0 1px 6px rgba(30, 15, 6, 0.10);
 
@@ -154,6 +155,12 @@ font-family: 'DM Sans', sans-serif;
     letter-spacing: 0.04em;
     color: var(--brown-dark);
     align-self: center;
+    display: block;
+    flex: 0 1 250px;
+    max-width: 250px;
+    line-height: 1.12;
+    text-wrap: balance;
+    white-space: normal;
   }
 
   #nav-logo:hover {
@@ -173,6 +180,10 @@ font-family: 'DM Sans', sans-serif;
     display: flex;
     align-items: center;
     column-gap: 28px;
+    row-gap: 8px;
+    flex: 1;
+    justify-content: flex-end;
+    flex-wrap: wrap;
   }
 
 .nav-link {
