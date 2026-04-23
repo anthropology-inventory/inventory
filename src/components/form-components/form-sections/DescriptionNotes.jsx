@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import FormFieldset from '../FormFieldset'
 import FormTextarea from '../FormTextarea'
 import FormSelect from '../FormSelect'
@@ -21,11 +21,17 @@ function DescriptionNotes({
   const [selectedCabinet, setSelectedCabinet] = useState('')
   const [selectedShelf, setSelectedShelf] = useState('')
   const [selectedDrawer, setSelectedDrawer] = useState('')
+  const skipEmptyLocationSyncRef = useRef(false)
 
   useEffect(() => {
     const location = normalizeLocation(locationData?.value)
 
     if (!location) {
+      if (skipEmptyLocationSyncRef.current) {
+        skipEmptyLocationSyncRef.current = false
+        return
+      }
+
       setStorageType('')
       setSelectedCabinet('')
       setSelectedShelf('')
@@ -69,12 +75,13 @@ function DescriptionNotes({
     setSelectedCabinet('')
     setSelectedShelf('')
     setSelectedDrawer('')
-  }, [locationData])
+  }, [locationData?.value])
 
   const resetLocation = () => {
     setSelectedCabinet('')
     setSelectedShelf('')
     setSelectedDrawer('')
+    skipEmptyLocationSyncRef.current = true
     selectChangeFunc({ value: null }, 'location')
   }
 
@@ -94,6 +101,7 @@ function DescriptionNotes({
       return
     }
 
+    skipEmptyLocationSyncRef.current = true
     selectChangeFunc({ value: null }, 'location')
   }
 
