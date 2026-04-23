@@ -1,8 +1,49 @@
+import { normalizeLocation } from './locationFormatter'
+
 // const PORT = 3001
 // const API_URI = `http://localhost:` + PORT + `/api/specimens/`
 const API_URI = import.meta.env.VITE_API_URI || import.meta.env.VITE_API_BASE_URI
 
 const token = localStorage.getItem('token')
+
+const normalizeArtifact = (artifact) => {
+  if (!artifact || typeof artifact !== 'object' || Array.isArray(artifact)) {
+    return artifact
+  }
+
+  return {
+    ...artifact,
+    location: normalizeLocation(artifact.location)
+  }
+}
+
+const normalizeArtifacts = (artifacts) => {
+  if (!Array.isArray(artifacts)) {
+    return artifacts
+  }
+
+  return artifacts.map(normalizeArtifact)
+}
+
+const appendArtifactField = (form, key, value) => {
+  if (value === null || value === '') {
+    return
+  }
+
+  if (key === 'image') {
+    if (value instanceof File) {
+      form.append('image', value)
+    }
+    return
+  }
+
+  if (key === 'location') {
+    form.append(key, typeof value === 'object' ? JSON.stringify(value) : value)
+    return
+  }
+
+  form.append(key, value)
+}
 
 export const fetchArtifacts = async () => {
   try {
@@ -17,7 +58,7 @@ export const fetchArtifacts = async () => {
       console.log('Error fetching artifacts')
     }
     const data = await res.json()
-    return data
+    return normalizeArtifacts(data)
   } catch (err) {
     console.error('Failed to fetch artifacts:', err)
   }
@@ -128,9 +169,7 @@ export const addArtifact = async (formData) => {
     const form = new FormData()
 
     Object.keys(formData).forEach((key) => {
-      if (formData[key] !== null && formData[key] !== '') {
-        form.append(key, formData[key])
-      }
+      appendArtifactField(form, key, formData[key])
     })
 
     const response = await fetch(API_URI + '/api/specimens/', {
@@ -147,7 +186,7 @@ export const addArtifact = async (formData) => {
     }
 
     const data = await response.json()
-    return data
+    return normalizeArtifact(data)
   } catch (error) {
     console.log('Error fetching total cost')
     return null
@@ -167,7 +206,7 @@ export const getArtifactById = async (id) => {
       console.log('Error fetching artifact with ID:', id)
       return null
     }
-    return await response.json()
+    return normalizeArtifact(await response.json())
   } catch (error) {
     console.log('Error fetching artifact:', error)
     return null
@@ -179,16 +218,7 @@ export const updateArtifact = async (id, formData) => {
     const form = new FormData()
 
     Object.keys(formData).forEach((key) => {
-      if (formData[key] !== null && formData[key] !== '') {
-        // Only append the image if it's a File
-        if (key === 'image') {
-          if (formData.image instanceof File) {
-            form.append('image', formData.image)
-          }
-        } else {
-          form.append(key, formData[key])
-        }
-      }
+      appendArtifactField(form, key, formData[key])
     })
 
     const response = await fetch(API_URI + '/api/specimens/' + id, {
@@ -205,7 +235,7 @@ export const updateArtifact = async (id, formData) => {
       return null
     }
 
-    return await response.json()
+    return normalizeArtifact(await response.json())
   } catch (error) {
     console.log('Error updating artifact:', error)
     return null
@@ -226,7 +256,7 @@ export const fetchSpecimenById = async (id) => {
       throw new Error('Failed to fetch specimen')
     }
     const data = await response.json()
-    return data
+    return normalizeArtifact(data)
   } catch (error) {
     console.error('Error fetching specimen:', error)
     return null

@@ -21,6 +21,10 @@
  * formatLocation({ cabinet: 'Cabinet 2', drawer: 'Drawer 5' })
  * // Returns: "Cabinet 2 - Drawer 5"
  *
+ * // Drawer-only format
+ * formatLocation({ drawer: 'Drawer 7' })
+ * // Returns: "Drawer 7"
+ *
  * // Legacy string format
  * formatLocation('Cabinet 1, Row 3')
  * // Returns: "Cabinet 1, Row 3"
@@ -29,29 +33,71 @@
  * formatLocation(null)
  * // Returns: "N/A"
  */
+export function normalizeLocation(location) {
+  if (!location) return null
+
+  if (typeof location === 'object' && !Array.isArray(location)) {
+    return location
+  }
+
+  if (typeof location === 'string') {
+    const trimmedLocation = location.trim()
+
+    if (!trimmedLocation || trimmedLocation === '[object Object]') {
+      return null
+    }
+
+    if (
+      (trimmedLocation.startsWith('{') && trimmedLocation.endsWith('}')) ||
+      (trimmedLocation.startsWith('"') && trimmedLocation.endsWith('"'))
+    ) {
+      try {
+        return normalizeLocation(JSON.parse(trimmedLocation))
+      } catch {
+        return trimmedLocation
+      }
+    }
+
+    return trimmedLocation
+  }
+
+  return null
+}
+
 export function formatLocation(location) {
-  if (!location) return 'N/A'
+  const normalizedLocation = normalizeLocation(location)
+
+  if (!normalizedLocation) return 'N/A'
 
   // Handle new structured location format (object)
-  if (typeof location === 'object') {
-    if (location.cabinet && location.shelf) {
-      return `${location.cabinet} - Shelf ${location.shelf}`
-    } else if (location.cabinet && location.drawer) {
-      return `${location.cabinet} - ${location.drawer}`
+  if (typeof normalizedLocation === 'object') {
+    if (normalizedLocation.cabinet && normalizedLocation.shelf) {
+      const shelfValue = String(normalizedLocation.shelf)
+      const shelfLabel = shelfValue.startsWith('Shelf') ? shelfValue : `Shelf ${shelfValue}`
+      return `${normalizedLocation.cabinet} - ${shelfLabel}`
     }
+
+    if (normalizedLocation.cabinet && normalizedLocation.drawer) {
+      return `${normalizedLocation.cabinet} - ${normalizedLocation.drawer}`
+    }
+
+    if (normalizedLocation.drawer) {
+      return normalizedLocation.drawer
+    }
+
     return 'N/A'
   }
 
   // Handle legacy string format for backward compatibility
-  if (typeof location === 'string') {
-    return location
+  if (typeof normalizedLocation === 'string') {
+    return normalizedLocation
   }
 
   return 'N/A'
 }
 
 /**
- * Validates if a location object has valid cabinet and shelf/drawer values.
+ * Validates if a location object has a valid drawer value or legacy cabinet + shelf/drawer values.
  *
  * @param {object} location - The location object to validate
  * @returns {boolean} - True if location is valid, false otherwise
@@ -64,31 +110,38 @@ export function formatLocation(location) {
  * // Returns: false
  */
 export function isValidLocation(location) {
-  if (!location || typeof location !== 'object') return false
+  const normalizedLocation = normalizeLocation(location)
 
-  const hasValidCabinet = location.cabinet && typeof location.cabinet === 'string'
-  const hasValidShelf = location.shelf && typeof location.shelf === 'string'
-  const hasValidDrawer = location.drawer && typeof location.drawer === 'string'
+  if (!normalizedLocation || typeof normalizedLocation !== 'object') return false
 
-  // Must have cabinet AND (shelf OR drawer)
-  return hasValidCabinet && (hasValidShelf || hasValidDrawer)
+  const hasValidCabinet =
+    typeof normalizedLocation.cabinet === 'string' && normalizedLocation.cabinet.trim() !== ''
+  const hasValidShelf =
+    typeof normalizedLocation.shelf === 'string' && normalizedLocation.shelf.trim() !== ''
+  const hasValidDrawer =
+    typeof normalizedLocation.drawer === 'string' && normalizedLocation.drawer.trim() !== ''
+
+  return hasValidDrawer || (hasValidCabinet && hasValidShelf)
 }
 
 /**
  * Extracts the location type from a location object.
  *
  * @param {object} location - The location object
- * @returns {string|null} - 'cabinet-shelf', 'cabinet-drawer', or null
+ * @returns {string|null} - 'drawer', 'cabinet-shelf', 'cabinet-drawer', or null
  *
  * @example
  * getLocationType({ cabinet: 'Cabinet 1', shelf: 'Shelf 3' })
  * // Returns: 'cabinet-shelf'
  */
 export function getLocationType(location) {
-  if (!location || typeof location !== 'object') return null
+  const normalizedLocation = normalizeLocation(location)
 
-  if (location.cabinet && location.shelf) return 'cabinet-shelf'
-  if (location.cabinet && location.drawer) return 'cabinet-drawer'
+  if (!normalizedLocation || typeof normalizedLocation !== 'object') return null
+
+  if (normalizedLocation.cabinet && normalizedLocation.shelf) return 'cabinet-shelf'
+  if (normalizedLocation.cabinet && normalizedLocation.drawer) return 'cabinet-drawer'
+  if (normalizedLocation.drawer) return 'drawer'
 
   return null
 }

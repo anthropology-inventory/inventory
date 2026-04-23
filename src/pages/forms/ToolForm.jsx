@@ -104,6 +104,7 @@ const ToolForm = () => {
         descriptionData={formData.description}
         notesData={formData.notes}
         changeFunc={handleChange}
+        selectChangeFunc={handleSelectChange}
       />
       <PurchaseInfo
         dateData={{ value: formData.dateOfPurchase, errors: errors.dateOfPurchase }}
