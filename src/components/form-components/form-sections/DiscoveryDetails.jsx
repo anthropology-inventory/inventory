@@ -38,7 +38,7 @@ function DiscoveryDetails({
           inputName={'regionFound'}
           placeholderTxt={'e.g. Afar Triangle'}
           isRequired={false}
-          value={regionData.value}
+          inputValue={regionData.value}
           changeFunc={changeFunc}
           inputClass={regionData.value === '' ? '' : regionData.errors ? 'invalid' : 'valid'}
           validationErr={regionData.errors}
