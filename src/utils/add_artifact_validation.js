@@ -173,6 +173,11 @@ function validateManufacturerId(errors, input) {
 }
 
 function validateDateOfPurchase(errors, input) {
+  if (input.length === 0) {
+    errors.dateOfPurchase = false
+    return
+  }
+
   const [year, month, day] = input.split('-').map((num) => parseInt(num, 10))
   const inputDate = new Date(year, month - 1, day)
   const today = new Date()
