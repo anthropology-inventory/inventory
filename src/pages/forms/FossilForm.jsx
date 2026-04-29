@@ -21,9 +21,9 @@ import DescriptionNotes from '../../components/form-components/form-sections/Des
 import PhotoUpload from '../../components/form-components/PhotoUpload'
 import BackButton from '../../components/button-components/BackBtn'
 import { ThemeProvider, Button, Box } from '@mui/material'
-import {button} from '../../styles/CustomThemes'
+import { button } from '../../styles/CustomThemes'
 
-const FossilForm = ({mode, artifactId }) => {
+const FossilForm = ({ mode, artifactId }) => {
 
   // Gets the id from the params or the artifact id, a double check for getting the correct ID if there
   const { id: paramId } = useParams()
@@ -196,7 +196,7 @@ const FossilForm = ({mode, artifactId }) => {
             isRequired={true}
             inputValue={formData.genus}
             changeFunc={handleChange}
-            inputClass={formData.genus === '' ? '' : errors.genus ? 'invalid' : 'valid'}
+            inputClass={formData.genus === '' ? '' : errors.genus ? 'invalid' : ''}
             validationErr={errors.genus}
           />,
           <FormInput
@@ -266,6 +266,7 @@ const FossilForm = ({mode, artifactId }) => {
             selectOptions={manufacturerOptions}
             selectStyles={selectStyles(!!formData.manufacturer)}
             selectClass={!errors.manufacturer && formData.manufacturer !== '' ? 'valid' : ''}
+            placeholderTxt="Type or select an option..."
           />,
           <FormInput
             key="manufacturerId"
@@ -291,6 +292,7 @@ const FossilForm = ({mode, artifactId }) => {
             selectOptions={materialOptions}
             selectStyles={selectStyles(!!formData.material)}
             selectClass={!errors.material && formData.material !== '' ? 'valid' : ''}
+            placeholderTxt="Type or select an option..."
           />,
           <FormSelect
             key="countryManufactured"
@@ -304,6 +306,7 @@ const FossilForm = ({mode, artifactId }) => {
             selectClass={
               !errors.countryManufactured && formData.countryManufactured !== '' ? 'valid' : ''
             }
+            placeholderTxt="Type or select an option..."
           />
         ]}
       />

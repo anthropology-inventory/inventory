@@ -4,6 +4,48 @@ import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import { BsInfoCircle } from 'react-icons/bs'
 
+const defaultSelectStyles = {
+  control: (base, state) => ({
+    ...base,
+    backgroundColor: '#fdf8f0',
+    border: `1px solid ${state.isFocused ? 'var(--teal)' : 'var(--border-warm)'}`,
+    borderRadius: 'var(--radius-sm)',
+    minHeight: 'calc(var(--input-height) + 6px)',
+    boxShadow: 'none',
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: 'var(--text-base)',
+    '&:hover': {
+      borderColor: 'var(--teal)'
+    },
+    cursor: 'pointer',
+  }),
+
+  option: (baseStyles, state) => ({
+    ...baseStyles,
+
+    backgroundColor: state.isFocused
+      ? 'var(--bg-card)'
+      : 'var(--cream)',
+
+    color: 'var(--text-dark)',
+
+    fontFamily: "'DM Sans', sans-serif",
+
+    cursor: 'pointer',
+  }),
+
+  valueContainer: (base) => ({
+    ...base,
+    padding: '10px 12px'
+  }),
+
+  input: (base) => ({
+    ...base,
+    margin: 0,
+    padding: 0
+  })
+}
+
 function FormSelect({
   label,
   selectName,
@@ -40,7 +82,7 @@ function FormSelect({
         isMulti={isMulitple}
         placeholder={placeholderTxt}
         options={selectOptions}
-        styles={selectStyles}
+        styles={defaultSelectStyles}
         className={selectClass}
         isDisabled={disable}
       />

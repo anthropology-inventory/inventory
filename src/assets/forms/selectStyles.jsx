@@ -11,28 +11,64 @@
  *
  * @see https://react-select.com/styles for more on react-select style customization
  */
-export const selectStyles = (isSelected) => ({
-  control: (baseStyles) => ({
+export const selectStyles = () => ({
+  control: (baseStyles, state) => ({
     ...baseStyles,
-    border: isSelected ? '1px solid green' : '1px solid transparent',
-    borderRadius: 6,
-    backgroundColor: isSelected ? '#00800013' : 'white',
-    fontSize: 14,
+
+    backgroundColor: 'var(--cream)',
+    border: state.isFocused
+      ? '1px solid var(--teal)'
+      : '1px solid var(--border-warm)',
+
     boxShadow: 'none',
-    ':hover': {
-      cursor: 'text',
-      border: '1px solid #759ffc',
-      boxShadow: '0px 0px 5px 1px #759ffc'
-    },
-    ':active': {
-      border: '1px solid #759ffc',
-      boxShadow: '0px 0px 5px 1px #759ffc'
-    }
+
+    fontFamily: "'DM Sans', sans-serif",
+    cursor: 'pointer'
   }),
-  option: (styles) => ({
-    ...styles,
-    ':hover': {
-      cursor: 'pointer'
-    }
-  })
-})
+
+  option: (baseStyles, state) => ({
+    ...baseStyles,
+
+    backgroundColor: state.isFocused
+      ? 'var(--bg-card)'
+      : 'var(--cream)',
+
+    color: 'var(--text-dark)',
+
+    fontFamily: "'DM Sans', sans-serif",
+
+    cursor: 'pointer',
+  }),
+
+  dropdownIndicator: (baseStyles) => ({
+    ...baseStyles,
+    cursor: 'pointer'
+  }),
+
+  indicatorSeparator: (baseStyles) => ({
+    ...baseStyles,
+    display: 'none'
+  }),
+
+  container: (baseStyles) => ({
+    ...baseStyles,
+    boxShadow: 'none'
+  }),
+
+  singleValue: (baseStyles) => ({
+    ...baseStyles,
+    color: 'var(--text-dark)',
+    fontFamily: "'DM Sans', sans-serif",
+  }),
+
+  placeholder: (baseStyles) => ({
+    ...baseStyles,
+    color: '#857d74',
+    fontFamily: "'DM Sans', sans-serif",
+  }),
+  input: (baseStyles) => ({
+    ...baseStyles,
+    color: 'var(--text-dark)',
+    fontFamily: "'DM Sans', sans-serif",
+  }),
+});

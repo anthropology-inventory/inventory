@@ -176,6 +176,7 @@ function DescriptionNotes({
                 selectName="cabinet"
                 selectValue={selectedCabinet}
                 selectOptions={cabinetOptions}
+                placeholderTxt="Type or select an option..."
                 changeFunc={handleCabinetSelect}
                 selectStyles={selectStyles(!!selectedCabinet)}
                 hasTooltip={true}
@@ -188,6 +189,7 @@ function DescriptionNotes({
                 selectName="shelf"
                 selectValue={selectedShelf}
                 selectOptions={shelfOptions}
+                placeholderTxt="Type or select an option..."
                 changeFunc={handleShelfSelect}
                 selectStyles={selectStyles(!!selectedShelf)}
                 hasTooltip={true}
@@ -205,6 +207,7 @@ function DescriptionNotes({
                 selectName="drawer"
                 selectValue={selectedDrawer}
                 selectOptions={drawerOptions}
+                placeholderTxt="Type or select an option..."
                 changeFunc={handleDrawerSelect}
                 selectStyles={selectStyles(!!selectedDrawer)}
                 hasTooltip={true}

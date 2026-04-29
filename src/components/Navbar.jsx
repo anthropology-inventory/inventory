@@ -26,9 +26,12 @@ const NavBar = () => {
 
   return (
     <header id="navbar">
+      <div class="main-text-resize">
       <a id="nav-logo" href="/">
-        GRC Anthro DB
+        Anthro Archive
       </a>
+      <span id="subtext">An Anthropology Database at GRC</span>
+      </div>
       <div>
         {isLoggedIn ? (
           <>
