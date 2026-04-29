@@ -7,24 +7,43 @@ import { BsArrowDownSquareFill, BsArrowUpSquareFill } from 'react-icons/bs'
 
 function FormFieldset({ fieldsetID, title, fields, isOptional }) {
   const [fieldVisibility, setFieldVisibility] = useState('')
+
+  const toggleVisibility = () => {
+    setFieldVisibility((prev) => (prev === '' ? 'visible' : ''))
+  }
+
   return (
-    <fieldset id={fieldsetID} className={isOptional ? 'optional-section' : null}>
-      <h3 className='login-title'>
-        {title}
-        {isOptional ? (
+    <fieldset
+      id={fieldsetID}
+      className={isOptional ? 'optional-section' : undefined}
+    >
+      <h3 className="login-title fieldset-header">
+        <span className="fieldset-title" onClick={toggleVisibility}>
+          {title}
+        </span>
+
+        {isOptional && (
           <Tooltip title="View fields" placement="right-end" arrow>
             <IconButton
               id="dropdown-btn"
-              onClick={() =>
-                fieldVisibility == '' ? setFieldVisibility('visible') : setFieldVisibility('')
-              }
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleVisibility()
+              }}
             >
-              {fieldVisibility == '' ? <BsArrowDownSquareFill /> : <BsArrowUpSquareFill />}
+              {fieldVisibility === '' ? (
+                <BsArrowDownSquareFill />
+              ) : (
+                <BsArrowUpSquareFill />
+              )}
             </IconButton>
           </Tooltip>
-        ) : null}
+        )}
       </h3>
-      <div className={`fieldset-fields ${fieldVisibility}`}>{fields}</div>
+
+      <div className={`fieldset-fields ${fieldVisibility}`}>
+        {fields}
+      </div>
     </fieldset>
   )
 }

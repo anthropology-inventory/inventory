@@ -236,7 +236,6 @@ export default function CreateUserForm({ onUserCreated }) {
             isRequired={true}
             selectValue={formData.isAdmin}
             changeFunc={handleSelectChange}
-            placeholderTxt="Select user type..."
             selectOptions={userTypeOptions}
             hasTooltip={true}
             tooltipTxt="Choose whether this user has admin permissions."

@@ -130,13 +130,14 @@ font-family: 'DM Sans', sans-serif;
   background: var(--bg-navbar);
   display: flex;
   justify-content: space-between;
-  padding: 8px 28px;
-  min-height: 64px;
+  padding: 6px 16px;        /* ↓ smaller padding */
+  min-height: 52px;         /* ↓ reduce height */
   min-width: 900px;
   align-items: center;
   gap: 24px;
   border-bottom: 1px solid var(--border-warm);
   box-shadow: 0 1px 6px rgba(30, 15, 6, 0.10);
+
 
   a {
     color: var(--navbar-text-muted);
@@ -168,13 +169,32 @@ font-family: 'DM Sans', sans-serif;
     color: var(--teal);
   }
 
-  .active {
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    text-decoration-color: var(--teal);
-    color: var(--brown-dark);
-    font-weight: 700;
-  }
+.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--teal);
+  color: var(--brown-dark);
+  font-weight: 500; /* was 700 */
+  opacity: 0.9;
+}
+
+.main-text-resize {
+  display: block;
+  justify-content: left;
+  max-width: 300px;
+  margin-top:5px
+}
+
+#subtext {
+  font-size: 10pt;
+  font-weight: lighter;
+  padding:none;
+  margin:none;
+}
+.main-text-resize a {
+  margin-bottom: none;
+  padding-bottom: none;
+}
 
   div {
     display: flex;
@@ -483,7 +503,7 @@ font-family: 'DM Sans', sans-serif;
 .sd-table-container table {
   width: 100%;
   border-collapse: collapse;
-  background-color: rgb(237, 237, 237);
+  background-color: #fdf8f0;
 }
 
 .sd-table-container td {
@@ -560,10 +580,6 @@ font-family: 'DM Sans', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 font-family: 'DM Sans', sans-serif;
-}
-
-.manage-users-table tbody tr:hover {
-  background: var(--sand-light);
 }
 
 .manage-users-actions {

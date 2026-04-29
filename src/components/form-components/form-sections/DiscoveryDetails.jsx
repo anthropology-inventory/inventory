@@ -51,6 +51,7 @@ function DiscoveryDetails({
           changeFunc={selectChangeFunc}
           selectOptions={countryOptions}
           selectStyles={selectStyles(!!countryData)}
+          placeholderTxt="Type or select an option..."
         />
       ]}
     />
