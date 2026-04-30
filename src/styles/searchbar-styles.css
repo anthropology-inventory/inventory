@@ -9,7 +9,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    margin-left: 90px;
+    margin-left: 40px;
 
     input {
       border-radius: var(--radius-sm) 0 0 var(--radius-sm);

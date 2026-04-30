@@ -289,8 +289,12 @@ font-family: 'DM Sans', sans-serif;
   column-gap: 10px;
   margin: 0 auto 20px auto;
   padding: 0 20px;
+  margin-right: 20px;
+}
+
+.dash-width-fix {
   max-width: 1200px;
-  margin-left: 145px;
+  margin: 0 auto;
 }
 
 @media (min-width: 1200px) {
