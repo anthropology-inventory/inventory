@@ -38,6 +38,7 @@ const Dashboard = () => {
 
   return (
     <>
+    <div className="dash-width-fix">
       <section id="dashboard-top">
         <SearchBar />
         <ViewCollectionBtn />
@@ -138,6 +139,7 @@ const Dashboard = () => {
           }
         />
       </section>
+      </div>
     </>
   )
 }
